@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Fragment>
       <Navbar />
-      <div className="min-h-screen bg-gray-900 bg-opacity-95 py-3">
+      <div className="min-h-screen bg-gray-900 bg-opacity-95">
         <Component {...pageProps} />
       </div>
       <Footer />

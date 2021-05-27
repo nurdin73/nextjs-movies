@@ -1,8 +1,10 @@
-import { Fragment } from "react"
+import { forwardRef, Fragment, useEffect, useState } from "react"
 import Image from 'next/image'
 import Link from "next/link"
+import slugify from "slugify"
 
-export default function EachData({ data, title }) {
+const EachData = forwardRef(({ data, title, total = 7 }, ref) => {
+
     if(data.results.length < 1) {
         return (
             <Fragment>
@@ -17,28 +19,53 @@ export default function EachData({ data, title }) {
 
     return (
         <Fragment>
-            <h2 className="text-yellow-500 text-bold text-2xl">{ title }</h2>
-            <hr className="my-2" />
-            <div className="grid grid-cols-7 gap-4">
-            {data.results.map((result, key) => {
-                if(key < 7) {
-                    return (
-                        <Link key={key} href={`/detail/movie/${result.id}`}>
-                            <div className="cursor-pointer group">
-                                <Image 
-                                    src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
-                                    alt={ result.title }
-                                    width={400}
-                                    height={580}
-                                    className="rounded"
-                                />
-                                <h1 className="truncate text-sm text-white group-hover:underline">{result.title}</h1>
-                            </div>
-                        </Link>
-                    )
-                }
-            })}
+            <div className="py-2">
+                <h2 className="text-yellow-500 text-bold text-2xl">{ title }</h2>
+                <hr className="my-2" />
+                <div className="grid grid-cols-7 gap-4">
+                {data.results.map((result, key) => {
+                    if(total == "max") {
+                        return (
+                            <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title, {
+                                lower: true
+                            })}`}>
+                                <div className="cursor-pointer group">
+                                    <Image 
+                                        src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+                                        alt={ result.title }
+                                        width={400}
+                                        height={580}
+                                        className="rounded"
+                                    />
+                                    <h1 className="truncate text-sm text-white group-hover:underline">{result.title}</h1>
+                                </div>
+                            </Link>
+                        )
+                    } else {
+                        if(key < total) {
+                            return (
+                                <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title, {
+                                    lower: true
+                                })}`}>
+                                    <div className="cursor-pointer group">
+                                        <Image 
+                                            src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+                                            alt={ result.title }
+                                            width={400}
+                                            height={580}
+                                            className="rounded"
+                                        />
+                                        <h1 className="truncate text-sm text-white group-hover:underline">{result.title}</h1>
+                                    </div>
+                                </Link>
+                            )
+                        }
+                    }
+                })}
+                </div>
             </div>
         </Fragment>
     )
-}
+})
+
+export default EachData

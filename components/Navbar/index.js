@@ -1,5 +1,5 @@
 import Link from 'next/link'
-function Navbar() {  
+function Navbar() { 
     return (
         <nav className="bg-gray-900 py-2 h-16 flex items-center">
             <div className="container mx-auto flex justify-between">
