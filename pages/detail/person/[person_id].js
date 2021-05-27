@@ -152,9 +152,10 @@ const PersonDetail = forwardRef(({personDetail}, ref) => {
                                         <ul className="flex flex-col space-y-2 mt-3">
                                             {personDetail.credits.crew.map((joblist, x) => {
                                                 if(joblist.department === department) {
+                                                    console.log(joblist);
                                                     return (
                                                         <li key={x} className="text-sm flex items-center justify-start space-x-1">
-                                                            <span>{joblist.release_date !== "" ? joblist.release_date.split('-')[0] : "-"}</span>
+                                                            <span>{joblist.release_date !== "" && joblist.release_date !== undefined ? joblist.release_date.split('-')[0] : "-"}</span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4" />
                                                             </svg>
