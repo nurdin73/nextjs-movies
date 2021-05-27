@@ -37,7 +37,7 @@ const EachData = forwardRef(({ data, title, total = 7 }, ref) => {
                                         height={580}
                                         className="rounded"
                                     />
-                                    <h1 className="truncate text-sm text-white group-hover:underline">{result.title}</h1>
+                                    <span className="truncate text-sm block text-white group-hover:underline">{result.title}</span>
                                 </div>
                             </Link>
                         )
