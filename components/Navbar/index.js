@@ -1,14 +1,23 @@
 import Link from 'next/link'
 function Navbar() { 
     return (
-        <nav className="bg-gray-900 py-2 h-16 flex items-center">
-            <div className="container mx-auto flex justify-between">
-                <div className="text-yellow-500 text-3xl font-bold items-center flex">
-                    <Link href="/">
-                        <span className="cursor-pointer">LUX</span>
+        <nav className="bg-gray-900 py-2 md:h-16 md:flex md:items-center">
+            <div className="md:container md:mx-auto flex justify-center flex-col md:flex-row items-center md:justify-between space-y-1 md:space-y-0 md:space-x-2">
+                <Link href="/">
+                    <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200">LUX</span>
+                </Link>
+                <div className="block md:hidden items-center space-x-3">
+                    <Link href="#">
+                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">TV show</span>
+                    </Link>
+                    <Link href="#">
+                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">Movies</span>
+                    </Link>
+                    <Link href="#">
+                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">People</span>
                     </Link>
                 </div>
-                <div className="w-1/2 block">
+                <div className="w-3/4 md:w-1/2 block">
                     <form className="relative">
                         <input type="text" placeholder="Search movie, person, tv show" className="px-3 py-2 block w-full rounded text-yellow-500 bg-gray-800 border-0  outline-none" />
                         <button type="submit" className="absolute right-2 top-2 outline-none border-0">
@@ -18,7 +27,7 @@ function Navbar() {
                         </button>
                     </form>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="hidden md:flex items-center space-x-3">
                     <Link href="#">
                         <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">TV show</span>
                     </Link>

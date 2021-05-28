@@ -32,12 +32,12 @@ function DetailMovie({ getDetail, similarMovies }) {
                 <meta property="og:image:width" content="245" />
                 <meta property="og:image:height" content="71" />
             </Head>
-            <div>
-                <div className="min-h-full bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>
+            <div className="hidden sm:block">
+                <div className="min-h-full md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>
                     <div className="bg-gray-900 bg-opacity-90 bg-cover min-h-full">
                         <div className="container mx-auto py-8">
-                            <div className="grid grid-cols-12 gap-4 items-center">
-                                <div className="col-span-3 bg-cover bg-center min-h-full relative">
+                            <div className="grid md:grid-cols-12 justify-center gap-4 items-center">
+                                <div className="col-span-5 justify-center md:col-span-3 bg-cover bg-center min-h-full relative">
                                     <Image 
                                         src={`https://image.tmdb.org/t/p/original${getDetail.poster_path}`}
                                         alt={getDetail.title}
@@ -93,9 +93,12 @@ function DetailMovie({ getDetail, similarMovies }) {
                         <div className="col-span-9">
                             <div className="flex justify-between items-center">
                                 <span className="block text-lg py-1 text-yellow-500">Top Billed Cast</span>
-                                <Link href={`/detail/persons/${getDetail.id}`}>
-                                    <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all cast & crew</span>
-                                </Link>
+                                {
+                                    castPopular.length > 0 ? 
+                                    <Link href={`/detail/persons/${getDetail.id}`}>
+                                        <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all cast & crew</span>
+                                    </Link> : ""
+                                }
                             </div>
                             <TopBilledCast casts={castPopular} />
 
@@ -104,48 +107,14 @@ function DetailMovie({ getDetail, similarMovies }) {
                                     <span>Reviews</span> 
                                     <span className="bg-gray-700 text-white px-2 rounded text-sm">{getDetail.reviews.total_results}</span> 
                                 </div>
-                                <Link href={`/detail/movie/reviews/${getDetail.id}/`}>
-                                    <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all review</span>
-                                </Link>
+                                {
+                                    getDetail.reviews.results.length > 0 ? 
+                                    <Link href={`/detail/movie/reviews/${getDetail.id}/`}>
+                                        <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all review</span>
+                                    </Link> : ""
+                                }
                             </div>
-                            <ul className="p-5 flex flex-col space-y-2 rounded bg-gray-900">
-                                {getDetail.reviews.results.map((review, key) => {
-                                    if(key < 1) {
-                                        return (
-                                            <li key={key} className="border-gray-800">
-                                                <div className="grid grid-cols-12 gap-4">
-                                                    <div className="col-span-1">
-                                                        <Image 
-                                                            src={`https://image.tmdb.org/t/p/original${review.author_details.avatar_path}`}
-                                                            alt={review.author}
-                                                            width={70}
-                                                            height={70}
-                                                            className="rounded-full"
-                                                        />  
-                                                    </div>
-                                                    <div className="col-span-11">
-                                                        <div className="flex items-start flex-col justify-start">
-                                                            <Link href={`/detail/review/${review.id}`}>
-                                                                <span className="text-white text-lg hover:text-opacity-70 cursor-pointer">A review by {review.author}</span>
-                                                            </Link>
-                                                            <span className="text-xs text-gray-600">
-                                                                Written by 
-                                                                <span className="mx-1 text-yellow-500 hover:text-opacity-60 hover:underline cursor-pointer">{review.author_details.username}</span>
-                                                                on <DateStr date={review.created_at} />
-                                                            </span>
-                                                            <p className="text-gray-500 text-md text-justify">
-                                                                {review.content}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        )
-                                    }
-                                })}
-                            </ul>
-                            
-
+                            <ReviewList reviews={getDetail.reviews} />
                             <EachData data={similarMovies} title="Similar movies" />
                         </div>
                         <div className="col-span-3">
@@ -183,9 +152,87 @@ function DetailMovie({ getDetail, similarMovies }) {
                     </div>
                 </div>
             </div>
+            <div className="block sm:hidden">
+                <div className="h-48 min-h-full bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>
+                    <div className="flex justify-between items-center bg-gray-900 px-3 py-2 bg-opacity-60">
+                        <Link href="/">
+                            <button className="outline-none focus:outline-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                            </button>
+                        </Link>
+                        <span className="text-yellow-500 font-bold truncate">{ getDetail.title || getDetail.original_name }</span>
+                    </div>
+                </div>
+                <div className="absolute left-0 right-0 bottom-0 top-40 rounded-t-3xl bg-gray-900 p-4">
+                    <div className="flex justify-center items-center p-2">
+                        <div className="w-2/4 relative">
+                            <Image 
+                                src={`https://image.tmdb.org/t/p/original${getDetail.poster_path}`}
+                                alt={getDetail.title}
+                                width={300}
+                                height={420}
+                                className="block rounded"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </Fragment>
     )
 } 
+
+export function ReviewList({ reviews = [] }) {  
+    if(reviews.results.length > 0) {
+        return (
+            <ul className="p-5 flex flex-col space-y-2 rounded bg-gray-900">
+                {reviews.results.map((review, key) => {
+                    if(key < 1) {
+                        return (
+                            <li key={key} className="border-gray-800">
+                                <div className="grid grid-cols-12 gap-4">
+                                    <div className="col-span-1">
+                                        <Image 
+                                            src={`https://image.tmdb.org/t/p/original${review.author_details.avatar_path}`}
+                                            alt={review.author}
+                                            width={70}
+                                            height={70}
+                                            className="rounded-full"
+                                        />  
+                                    </div>
+                                    <div className="col-span-11">
+                                        <div className="flex items-start flex-col justify-start">
+                                            <Link href={`/detail/review/${review.id}`}>
+                                                <span className="text-white text-lg hover:text-opacity-70 cursor-pointer">A review by {review.author}</span>
+                                            </Link>
+                                            <span className="text-xs text-gray-600">
+                                                Written by 
+                                                <span className="mx-1 text-yellow-500 hover:text-opacity-60 hover:underline cursor-pointer">{review.author_details.username}</span>
+                                                on <DateStr date={review.created_at} />
+                                            </span>
+                                            <p className="text-gray-500 text-md text-justify">
+                                                {review.content}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        )
+                    }
+                })}
+            </ul>
+        )
+    } else {
+        return (
+            <Fragment>
+                <div className="bg-gray-900 px-3 py-2 text-gray-500 rounded">
+                    Reviews not found
+                </div>
+            </Fragment>
+        )
+    }
+}
 
 export async function getServerSideProps(context) {  
     const { movie_id } = context.query

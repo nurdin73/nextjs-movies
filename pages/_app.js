@@ -10,7 +10,6 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Navbar />
       <div className="min-h-screen bg-gray-900 bg-opacity-95">
         <Component {...pageProps} />
       </div>

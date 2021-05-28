@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from "next/link"
 import slugify from "slugify"
 
-const EachData = forwardRef(({ data, title, total = 7 }, ref) => {
+const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
 
     if(data.results.length < 1) {
         return (
@@ -20,15 +20,15 @@ const EachData = forwardRef(({ data, title, total = 7 }, ref) => {
     return (
         <Fragment>
             <div className="py-2">
-                <h2 className="text-yellow-500 text-bold text-2xl">{ title }</h2>
-                <div className="grid grid-cols-7 gap-4">
+                <h2 className="text-yellow-500 text-bold text-md md:text-2xl">{ title }</h2>
+                <div className="grid grid-cols-2 md:grid-cols-8 gap-4 overflow-x-auto md:overflow-hidden">
                 {data.results.map((result, key) => {
                     if(total == "max") {
                         return (
                             <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title, {
                                 lower: true
                             })}`}>
-                                <div className="cursor-pointer group">
+                                <div className="cursor-pointer group col-span-6">
                                     <Image 
                                         src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
                                         alt={ result.title }

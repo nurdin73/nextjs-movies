@@ -1,13 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { forwardRef } from "react";
+import { forwardRef, Fragment } from "react";
 import slugify from "slugify";
 
 const TopBilledCast = forwardRef(({ casts }, ref) => {
+    if(casts.length < 1) {
+        return (
+            <Fragment>
+                <div className="bg-gray-900 px-3 py-2 text-gray-500 rounded">
+                    Top billed casts not found
+                </div>
+            </Fragment>
+        )
+    }
     return (
         <ul className="grid grid-cols-7 gap-4">
         {casts.map((cast, key) => {
-            return (
+            if(key < 7) {
+                return (
                     <Link href={`/detail/person/${cast.id}-${slugify(cast.name || cast.original_name, {
                         lower: true
                     })}`} ref={ref} key={key}>
@@ -25,7 +35,8 @@ const TopBilledCast = forwardRef(({ casts }, ref) => {
                             </div>
                         </li>
                     </Link>
-            )
+                )
+            }
         })}
     </ul>
     )
