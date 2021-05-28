@@ -14,7 +14,13 @@ const PersonDetail = forwardRef(({personDetail}, ref) => {
     const namePerson = splitStr.join(' ')
 
     // filtering know for
-    var filterKnowFor = personDetail.credits.crew.filter((crew, i) => {
+    var filterKnowFor = personDetail.known_for_department === "Acting" ? 
+        personDetail.credits.cast.filter((cast, i) => {
+            if(cast.vote_average >= 6) {
+                return cast
+            }
+        })
+    : personDetail.credits.crew.filter((crew, i) => {
         if(crew.vote_average >= 6) {
             return crew.department == personDetail.known_for_department
         }
@@ -152,7 +158,6 @@ const PersonDetail = forwardRef(({personDetail}, ref) => {
                                         <ul className="flex flex-col space-y-2 mt-3">
                                             {personDetail.credits.crew.map((joblist, x) => {
                                                 if(joblist.department === department) {
-                                                    console.log(joblist);
                                                     return (
                                                         <li key={x} className="text-sm flex items-center justify-start space-x-1">
                                                             <span>{joblist.release_date !== "" && joblist.release_date !== undefined ? joblist.release_date.split('-')[0] : "-"}</span>

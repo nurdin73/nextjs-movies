@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import EachData from '../../../components/EachData';
 import slugify from 'slugify';
+import TopBilledCast from '../../../components/TopBilledCast';
+import DateStr from '../../../components/DateStr';
 
 function DetailMovie({ getDetail, similarMovies }) {
     const crewPopular = getDetail.credits.crew.filter(crew => {
@@ -11,13 +13,18 @@ function DetailMovie({ getDetail, similarMovies }) {
             return crew.job == "Screenplay"  || crew.job == "Story" || crew.job == "Director" || crew.job == "Novel"
         }
     })
+
+    const castPopular = getDetail.credits.cast.filter(cast => {
+        if(cast.popularity >= 6.5) {
+            return cast
+        }
+    })
     return (
         <Fragment>
             <Head>
-                <title>{getDetail.title}</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>{getDetail.title} | LUX movie rating</title>
                 <meta name="description" content={getDetail.overview} />
-                <meta property="og:title" id="titleOg" content={ getDetail.title } />
+                <meta property="og:title" id="titleOg" content={ getDetail.title + " | LUX movie rating" } />
                 <meta property="og:description" id="descOg" content={ getDetail.overview } />
                 <meta property="og:site_name" content="LUX | online movie ratings" />
                 <meta property="og:type" content="website" />
@@ -82,14 +89,96 @@ function DetailMovie({ getDetail, similarMovies }) {
                     </div>
                 </div>
                 <div className="container mx-auto">
-                    <div className="grid grid-cols-12">
+                    <div className="grid grid-cols-12 gap-4">
                         <div className="col-span-9">
-                            <span className="block text-lg py-1 text-yellow-500">Top Billed Cast</span>
+                            <div className="flex justify-between items-center">
+                                <span className="block text-lg py-1 text-yellow-500">Top Billed Cast</span>
+                                <Link href={`/detail/persons/${getDetail.id}`}>
+                                    <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all cast & crew</span>
+                                </Link>
+                            </div>
+                            <TopBilledCast casts={castPopular} />
+
+                            <div className="flex justify-between items-center">
+                                <div className="flex- justify-start items-center space-x-2 text-lg py-1 text-yellow-500">
+                                    <span>Reviews</span> 
+                                    <span className="bg-gray-700 text-white px-2 rounded text-sm">{getDetail.reviews.total_results}</span> 
+                                </div>
+                                <Link href={`/detail/movie/reviews/${getDetail.id}/`}>
+                                    <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all review</span>
+                                </Link>
+                            </div>
+                            <ul className="p-5 flex flex-col space-y-2 rounded bg-gray-900">
+                                {getDetail.reviews.results.map((review, key) => {
+                                    if(key < 1) {
+                                        return (
+                                            <li key={key} className="border-gray-800">
+                                                <div className="grid grid-cols-12 gap-4">
+                                                    <div className="col-span-1">
+                                                        <Image 
+                                                            src={`https://image.tmdb.org/t/p/original${review.author_details.avatar_path}`}
+                                                            alt={review.author}
+                                                            width={70}
+                                                            height={70}
+                                                            className="rounded-full"
+                                                        />  
+                                                    </div>
+                                                    <div className="col-span-11">
+                                                        <div className="flex items-start flex-col justify-start">
+                                                            <Link href={`/detail/review/${review.id}`}>
+                                                                <span className="text-white text-lg hover:text-opacity-70 cursor-pointer">A review by {review.author}</span>
+                                                            </Link>
+                                                            <span className="text-xs text-gray-600">
+                                                                Written by 
+                                                                <span className="mx-1 text-yellow-500 hover:text-opacity-60 hover:underline cursor-pointer">{review.author_details.username}</span>
+                                                                on <DateStr date={review.created_at} />
+                                                            </span>
+                                                            <p className="text-gray-500 text-md text-justify">
+                                                                {review.content}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        )
+                                    }
+                                })}
+                            </ul>
                             
+
                             <EachData data={similarMovies} title="Similar movies" />
                         </div>
                         <div className="col-span-3">
-
+                            <ul className="list-none flex flex-col items-start justify-start space-y-2 mt-2">
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Status</span>
+                                    <span className="font-thin text-white text-sm text-opacity-70">{getDetail.status}</span>
+                                </li>
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Original language</span>
+                                    <span className="font-thin text-white text-sm text-opacity-70">{getDetail.original_language}</span>
+                                </li>
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Budget</span>
+                                    <span className="font-thin text-white text-sm text-opacity-70">${parseInt(getDetail.budget).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</span>
+                                </li>
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Revenue</span>
+                                    <span className="font-thin text-white text-sm text-opacity-70">${parseInt(getDetail.revenue).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</span>
+                                </li>
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Keywords</span>
+                                    <ul className="flex flex-wrap gap-2 mt-2">
+                                        {getDetail.keywords.keywords.map((keyword, key) => {
+                                            return (
+                                                <Link key={key} href={`/detail/keyword/${keyword.id}-${slugify(keyword.name, { lower: true })}`}>
+                                                    <li className="flex-auto text-sm text-white text-opacity-50 cursor-pointer hover:bg-opacity-50 transition duration-200 bg-gray-800 px-2 rounded text-center">{keyword.name}</li>
+                                                </Link>
+                                            )
+                                        })}
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -102,11 +191,12 @@ export async function getServerSideProps(context) {
     const { movie_id } = context.query
     const movieId = movie_id.split('-')[0]
     
-    const detailReq = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=f52aa1a7c260685a467d566a4b94825f&append_to_response=credits`)
+    const detailReq = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=f52aa1a7c260685a467d566a4b94825f&append_to_response=credits,keywords,videos,images,reviews`)
     const getDetail = await detailReq.json()
 
     const sm = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=f52aa1a7c260685a467d566a4b94825f`)
     const similarMovies = await sm.json()
+
     return {
         props: {
             getDetail: getDetail,
