@@ -11,7 +11,7 @@ const GenreDetail = forwardRef(({movieByGenre}, ref) => {
             <Head>
                 <title>List movie genre ${nameGenre}</title>
             </Head>
-            <div className="container mx-auto">
+            <div className="px-3 md:px-0 md:container md:mx-auto">
                 <EachData data={movieByGenre} total="max" title={`List movie genre ${nameGenre}`} />
                 <div className="flex justify-center items-center py-5">
                     <button className="px-5 py-1 rounded bg-yellow-600 block text-lg">Tampilkan lebih banyak</button>

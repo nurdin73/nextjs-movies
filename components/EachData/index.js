@@ -28,7 +28,7 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                             <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title, {
                                 lower: true
                             })}`}>
-                                <div className="cursor-pointer group col-span-6">
+                                <div className="cursor-pointer group">
                                     <Image 
                                         src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
                                         alt={ result.title }
