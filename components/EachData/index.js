@@ -21,7 +21,7 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
         <Fragment>
             <div className="py-2">
                 <h2 className="text-yellow-500 text-bold text-md md:text-2xl">{ title }</h2>
-                <div className="grid grid-cols-2 md:grid-cols-8 gap-4 overflow-x-auto md:overflow-hidden">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 overflow-x-auto md:overflow-hidden">
                 {data.results.map((result, key) => {
                     if(total == "max") {
                         return (
