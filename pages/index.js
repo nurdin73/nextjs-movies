@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import EachData from '../components/EachData'
 import Navbar from '../components/Navbar'
 
@@ -11,7 +12,31 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <Navbar /> */}
-      <div className="mx-4 md:container md:mx-auto">
+      <div className="mx-4 md:container md:mx-auto pt-4">
+        <ul className="overflow-x-scroll no-scrollbar flex items-center flex-nowrap md:flex-wrap gap-3">
+          {
+            props.genreMovies.genres.map((genre, key) => {
+              return (
+                <li key={key} className="cursor-pointer flex-initial bg-gray-800 text-yellow-500 hover:text-opacity-70 px-2 rounded">
+                  <Link href={`/genre/${genre.id}-${genre.name}`}>
+                    <span className="truncate mt-2">{genre.name}</span>
+                  </Link>
+                </li>
+              )
+            })
+          }
+          {
+            props.genresTv.genres.map((genre, key) => {
+              return (
+                <li key={key} className="cursor-pointer flex-initial bg-gray-800 text-yellow-500 hover:text-opacity-70 px-2 rounded transition duration-200">
+                  <Link href={`/genre-tv/${genre.id}-${genre.name}`}>
+                    <span className="truncate mt-2">{genre.name}</span>
+                  </Link>
+                </li>
+              )
+            })
+          }
+        </ul>
         <EachData data={props.popularMovies} title="Popular movies" />
         <EachData data={props.nowPlaying} title="Now Playing" />
         <EachData data={props.topRated} title="Top Rated" />
@@ -34,12 +59,20 @@ export async function getServerSideProps() {
   const upcom = await fetch("https://api.themoviedb.org/3/movie/upcoming?api_key=f52aa1a7c260685a467d566a4b94825f")
   const upcommingMovies = await upcom.json()
 
+  const genre = await fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const genreMovies = await genre.json()
+
+  const genreTvUrl = await fetch("https://api.themoviedb.org/3/genre/tv/list?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const genresTv = await genreTvUrl.json()
+
   return {
     props: {
       topRated: topRated,
       nowPlaying: nowPlaying,
       popularMovies: popularMovies,
       upcommingMovies: upcommingMovies,
+      genreMovies: genreMovies,
+      genresTv: genresTv
     }
   }
 }
