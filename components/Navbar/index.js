@@ -130,59 +130,7 @@ function Navbar() {
                                     </li>
                                 ) :
                                 ""
-                            }   
-
-                            {/* {searchData.map(search => {
-                                if(search.media_type === "tv") {
-                                    return (
-                                        <li>
-                                            <span className="block text-gray-500">TV's</span>
-                                            <ul>
-                                                <li>{search.original_title}</li>
-                                            </ul>
-                                        </li>
-                                    )
-                                } else if(search.media_type === "movie") {
-                                    return (
-                                        <li>
-                                            <span className="block text-gray-500">Movies</span>
-                                            <ul>
-                                                <li>{search.original_title}</li>
-                                            </ul>
-                                        </li>
-                                    )
-                                } else if(search.media_type === "person") {
-                                    return (
-                                        <li>
-                                            <span className="block text-gray-500">Person's</span>
-                                            <ul>
-                                                <li>{search.name}</li>
-                                            </ul>
-                                        </li>
-                                    )
-                                }
-                                // const image = search.poster_path ?? search.profile_path
-                                // return (
-                                //     <li className="md:grid md:grid-cols-12 gap-3">
-                                //         <div className="col-span-3">
-                                //             <Image 
-                                //                 src={image !== null ? `https://image.tmdb.org/t/p/original${image}` : `https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg`}
-                                //                 alt={search.original_name || search.original_title || search.name}
-                                //                 width={300}
-                                //                 height={400}
-                                //                 className="rounded"
-                                //             />
-                                //         </div>
-                                //         <div className="col-span-9">
-                                //             <div className="flex flex-col space-y-2 justify-start">
-                                //                 <Link href={`/`}>
-                                //                     <span className="cursor-pointer text-gray-200 hover:text-opacity-70 truncate transition duration-200">{search.original_name || search.original_title || search.name}</span>
-                                //                 </Link>
-                                //             </div>
-                                //         </div>
-                                //     </li>
-                                // )
-                            })} */}
+                            }
                         </ul>
                     </div>
                 </div>
