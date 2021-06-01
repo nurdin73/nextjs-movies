@@ -3,7 +3,7 @@ import Link from "next/link";
 function Footer() {  
     return (
         <footer className="bg-gray-900">
-            <div className="container mx-auto p-5 grid md:grid-cols-3 gap-5">
+            <div className="container mx-auto p-3 grid md:grid-cols-3 gap-5">
                 <div className="col-span-3 md:col-span-1">
                     <div className="text-yellow-500 text-5xl font-bold items-center">
                         <Link href={'/'}>

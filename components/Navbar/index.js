@@ -81,7 +81,7 @@ function Navbar() {
                                         <ul className="flex flex-wrap gap-2 mt-2">
                                             {filterSearchTv.map((search, key) => {
                                                 return (
-                                                    <Link href="/" key={key}>
+                                                    <Link href={`/detail/tv/${search.id}-${slugify(search.name || search.original_name, {lower: true})}`} key={key}>
                                                         <li onClick={handleClick} className="flex-initial text-md text-white text-opacity-50 cursor-pointer hover:bg-opacity-70 transition duration-200 bg-gray-900 px-2 rounded text-center">{search.original_name || search.name}</li>
                                                     </Link>
                                                 )

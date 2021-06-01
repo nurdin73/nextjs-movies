@@ -92,6 +92,14 @@ const PersonDetail = forwardRef(({personDetail}, ref) => {
         <Fragment ref={ref}>
             <Head>
                 <title>Person detail {namePerson}</title>
+                <meta name="description" content={personDetail.biography} />
+                <meta property="og:title" id="titleOg" content={ personDetail.name + " | LUX movie rating" } />
+                <meta property="og:description" id="descOg" content={ personDetail.biography } />
+                <meta property="og:site_name" content="LUX | online movie ratings" />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${personDetail.profile_path}`} />
+                <meta property="og:image:width" content="245" />
+                <meta property="og:image:height" content="71" />
             </Head>
             <div className="md:container md:mx-auto py-5 mx-4 md:block hidden">
                 <div className="grid grid-cols-12 gap-4 items-start">

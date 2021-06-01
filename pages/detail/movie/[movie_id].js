@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import EachData from '../../../components/EachData';
