@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import slugify from "slugify";
-import DateStr from "../../../components/DateStr";
+import DateStr from "../../../../components/DateStr";
 
 function TVDetail({ getDetail, languages, recommendations }) { 
  
@@ -104,7 +104,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                     <ul className="flex overflow-x-scroll no-scrollbar gap-3">
                         {getDetail.seasons.map((season, key) => {
                             return (
-                                <Link key={key} href={`/detail/${getDetail.id}/season/${season.season_number}`}>
+                                <Link key={key} href={`/detail/tv/${getDetail.id}/season/${season.season_number}`}>
                                     <li className="flex-1" style={{ minWidth: '33%' }}>
                                         <Image 
                                             src={season.poster_path !== null ? `https://image.tmdb.org/t/p/original${season.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}

@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Fragment } from "react"
 
 function SeasonDetail({ tvSeason, tvDetail }) {  
-    console.log(tvSeason);
     return (
         <Fragment>
             <Head>
@@ -41,7 +40,6 @@ function SeasonDetail({ tvSeason, tvDetail }) {
 
 export async function getServerSideProps(context) {  
     const { season_number, tv_id } = context.query
-
     const api = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}?api_key=f52aa1a7c260685a467d566a4b94825f`)
     const tvSeason = await api.json()
 
