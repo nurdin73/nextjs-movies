@@ -2,10 +2,10 @@ import Head from 'next/head';
 import { Fragment } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import EachData from '../../../components/EachData';
+import EachData from '../../../../components/EachData';
 import slugify from 'slugify';
-import TopBilledCast from '../../../components/TopBilledCast';
-import DateStr from '../../../components/DateStr';
+import TopBilledCast from '../../../../components/TopBilledCast';
+import DateStr from '../../../../components/DateStr';
 
 function DetailMovie({ getDetail, recommendations, languages }) {
     var crewPopular = getDetail.credits.crew.filter(crew => {
@@ -29,6 +29,9 @@ function DetailMovie({ getDetail, recommendations, languages }) {
             return cast
         }
     }) : castPopular
+
+
+    
 
     return (
         <Fragment>
@@ -106,7 +109,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                                 <span className="block text-lg py-1 text-yellow-500">Top Billed Cast</span>
                                 {
                                     castPopular.length > 0 ? 
-                                    <Link href={`/detail/persons/${getDetail.id}`}>
+                                    <Link href={`/detail/movie/${getDetail.id}-${slugify(getDetail.title || getDetail.original_title, {lower:true})}/persons`}>
                                         <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all cast & crew</span>
                                     </Link> : ""
                                 }
@@ -120,7 +123,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                                 </div>
                                 {
                                     getDetail.reviews.results.length > 0 ? 
-                                    <Link href={`/detail/movie/reviews/${getDetail.id}/`}>
+                                    <Link href={`/detail/movie/${getDetail.id}-${slugify(getDetail.title || getDetail.original_title, {lower:true})}/reviews`}>
                                         <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all review</span>
                                     </Link> : ""
                                 }
@@ -298,25 +301,66 @@ function DetailMovie({ getDetail, recommendations, languages }) {
     )
 } 
 
-export function ReviewList({ reviews = [] }) {  
+export function ReviewList({ reviews = [], total = 1 }) {  
+
+    const handleErrorImage = () => (image) => {
+        image.onerror = ""
+        image.src = "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
+        return true
+    }
+
     if(reviews.results.length > 0) {
         return (
-            <ul className="md:p-5 flex flex-col space-y-2 rounded bg-gray-900">
+            <ul className="flex flex-col justify-start space-y-3 items-start">
                 {reviews.results.map((review, key) => {
-                    if(key < 1) {
+                    if(total === 1) {
+                        if(key < 1) {
+                            return (
+                                <li key={key} className="md:p-5 rounded bg-gray-900">
+                                    <div className="grid grid-cols-12 md:gap-4">
+                                        <div className="col-span-1 hidden md:block">
+                                            <Image 
+                                                src={review.author_details.avatar_path !== null ? `https://image.tmdb.org/t/p/original${review.author_details.avatar_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
+                                                alt={review.author}
+                                                width={70}
+                                                height={70}
+                                                className="rounded-full"
+                                            />  
+                                        </div>
+                                        <div className="col-span-12 md:col-span-11">
+                                            <div className="flex items-start flex-col justify-start">
+                                                <Link href={`/detail/review/${review.id}`}>
+                                                    <span className="text-gray-400 md:text-white text-md md:text-lg hover:text-opacity-70 cursor-pointer">A review by {review.author}</span>
+                                                </Link>
+                                                <span className="text-xs text-gray-600">
+                                                    Written by 
+                                                    <span className="mx-1 text-yellow-500 hover:text-opacity-60 hover:underline cursor-pointer">{review.author_details.username}</span>
+                                                    on <DateStr date={review.created_at} />
+                                                </span>
+                                                <p className="text-gray-500 text-sm md:text-md text-justify">
+                                                    {review.content.length > 250 ? review.content.substr(0, 250) + "..." : review.content}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            )
+                        }
+                    } else {
                         return (
-                            <li key={key} className="border-gray-800">
+                            <li key={key} className="md:p-5 rounded bg-gray-900">
                                 <div className="grid grid-cols-12 md:gap-4">
                                     <div className="col-span-1 hidden md:block">
                                         <Image 
-                                            src={`https://image.tmdb.org/t/p/original${review.author_details.avatar_path}`}
+                                            src={review.author_details.avatar_path !== null ? `https://image.tmdb.org/t/p/original${review.author_details.avatar_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
                                             alt={review.author}
                                             width={70}
                                             height={70}
                                             className="rounded-full"
+                                            onError={handleErrorImage()}
                                         />  
                                     </div>
-                                    <div className="col-span-12 md:col-span-11">
+                                    <div className="col-span-12 md:col-span-11 group">
                                         <div className="flex items-start flex-col justify-start">
                                             <Link href={`/detail/review/${review.id}`}>
                                                 <span className="text-gray-400 md:text-white text-md md:text-lg hover:text-opacity-70 cursor-pointer">A review by {review.author}</span>
@@ -328,6 +372,9 @@ export function ReviewList({ reviews = [] }) {
                                             </span>
                                             <p className="text-gray-500 text-sm md:text-md text-justify">
                                                 {review.content.length > 250 ? review.content.substr(0, 250) + "..." : review.content}
+                                                <Link href={`/detail/review/${review.id}`}>
+                                                    <span className="text-white group-hover:underline cursor-pointer">read more</span>
+                                                </Link>
                                             </p>
                                         </div>
                                     </div>
