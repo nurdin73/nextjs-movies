@@ -4,14 +4,23 @@ import Link from "next/link";
 import { Fragment } from "react";
 import slugify from "slugify";
 import DateStr from "../../../../components/DateStr";
+import EachData from "../../../../components/EachData";
+import TopBilledCast from "../../../../components/TopBilledCast";
 
 function TVDetail({ getDetail, languages, recommendations }) { 
+
  
     var crewPopular = getDetail.credits.crew.filter(crew => {
         if(crew.popularity >= 1) {
-            return crew.job == "Screenplay"  || crew.job == "Story" || crew.job == "Director" || crew.job == "Novel"
+            return crew.job == "Executive Producer"  || crew.job == "Co-Executive Producer" || crew.job == "Supervising Art Director" || crew.job == "Original Music Composer"
         }
     })
+
+    crewPopular = crewPopular.length === 0 ? getDetail.credits.crew.filter((crew, key) => {
+        if(key < 6) {
+            return crew.job == "Executive Producer"  || crew.job == "Co-Executive Producer" || crew.job == "Supervising Art Director" || crew.job == "Original Music Composer"
+        }
+    }) : crewPopular
 
     const filterLanguage = languages.filter(language => {
         return language.iso_639_1 === getDetail.original_language
@@ -23,11 +32,12 @@ function TVDetail({ getDetail, languages, recommendations }) {
         }
     })
 
-    castPopular = castPopular.length === 0 ? getDetail.credits.cast.filter((cast, key) => {
-        if(key < 6) {
+    castPopular = castPopular.length <= 6 ? getDetail.credits.cast.filter((cast, key) => {
+        if(key < 7) {
             return cast
         }
     }) : castPopular
+
     return (
         <Fragment>
             <Head>
@@ -41,6 +51,158 @@ function TVDetail({ getDetail, languages, recommendations }) {
                 <meta property="og:image:width" content="245" />
                 <meta property="og:image:height" content="71" />
             </Head>
+            <div className="md:block hidden">
+                <div className="min-h-full md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>
+                    <div className="bg-gray-900 bg-opacity-90 bg-cover min-h-full">
+                        <div className="container mx-auto py-8">
+                            <div className="grid md:grid-cols-12 justify-center gap-4 items-center">
+                                <div className="col-span-5 justify-center md:col-span-3 bg-cover bg-center min-h-full relative">
+                                    <Image 
+                                        src={`https://image.tmdb.org/t/p/original${getDetail.poster_path}`}
+                                        alt={getDetail.name}
+                                        width={300}
+                                        height={420}
+                                        className="block rounded"
+                                    />
+                                    <span className="absolute left-3 top-3 bg-yellow-500 px-3 py-0 text-lg rounded">{getDetail.vote_average}</span>
+                                </div>
+                                <div className="col-span-9">
+                                    <h1 className="text-4xl text-yellow-500 text-bold">
+                                        {getDetail.name || getDetail.original_name}
+                                        <span className="text-xl text-gray-300 text-opacity-30">({getDetail.first_air_date.split('-')[0]})</span>
+                                    </h1>
+                                    <span className="block font-thin italic text-sm text-white text-opacity-80">{getDetail.tagline}</span>
+                                    <span className="block py-1 text-lg text-white font-bold">Overview</span>
+                                    <span className="block text-sm text-white text-opacity-80 font-light">{getDetail.overview}</span>
+                                    <span className="block text-lg py-1 text-white font-bold">Genre</span>
+                                    <ul className="flex items-center justify-start space-x-3 my-2">
+                                        {getDetail.genres.map((genre, key) => {
+                                            return (
+                                                <li key={key} className="cursor-pointer text-yellow-900 px-2 rounded bg-yellow-500 hover:bg-yellow-600 hover:text-yellow-100 transition duration-500">
+                                                    <Link href={`/genre/${genre.id}-${genre.name}`}>
+                                                        <span>{genre.name}</span>
+                                                    </Link> 
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                    <ul className="list-none grid grid-cols-3 gap-4 mt-3">
+                                        {crewPopular.map((crew, key) => {
+                                            if(key < 6) {
+                                                return (
+                                                    <li className="flex flex-col justify-start items-start" key={key}>
+                                                        <Link href={`/detail/person/${crew.id}-${slugify(crew.name || crew.original_name, {
+                                                            lower: true
+                                                        })}`}>
+                                                            <span className="font-bold truncate text-md text-white cursor-pointer hover:text-opacity-70">{ crew.name || crew.original_name }</span>
+                                                        </Link>
+                                                        <small className="text-sm text-opacity-60 text-white">{ crew.job }</small>
+                                                    </li>
+                                                )
+                                            }
+                                        })}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container mx-auto">
+                    <div className="grid grid-cols-12 gap-4">
+                        <div className="col-span-9">
+                            <div className="flex justify-between items-center">
+                                <span className="block text-lg py-1 text-yellow-500">Top Billed Cast</span>
+                                {
+                                    castPopular.length > 0 ? 
+                                    <Link href={`/detail/tv/${getDetail.id}-${slugify(getDetail.name || getDetail.original_name, {lower:true})}/persons`}>
+                                        <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all cast & crew</span>
+                                    </Link> : ""
+                                }
+                            </div>
+                            <TopBilledCast casts={castPopular} />
+
+                            <div className="flex justify-between items-center">
+                                <div className="flex- justify-start items-center space-x-2 text-lg py-1 text-yellow-500">
+                                    <span>Reviews</span> 
+                                    <span className="bg-gray-700 text-white px-2 rounded text-sm">{getDetail.reviews.total_results}</span> 
+                                </div>
+                                {
+                                    getDetail.reviews.results.length > 0 ? 
+                                    <Link href={`/detail/tv/${getDetail.id}-${slugify(getDetail.name || getDetail.original_name, {lower:true})}/reviews`}>
+                                        <span className="text-gray-500 hover:text-opacity-70 transition duration-200 cursor-pointer text-xs">View all review</span>
+                                    </Link> : ""
+                                }
+                            </div>
+                            <ReviewList reviews={getDetail.reviews} />
+                            <h2 className="mt-2 text-yellow-500 text-lg">Season <span className="bg-gray-800 bg-opacity-70 rounded text-gray-500 text-sm px-2">{getDetail.number_of_seasons}</span></h2>
+                            <ul className="flex overflow-x-scroll gap-3 my-2">
+                                {getDetail.seasons.map((season, key) => {
+                                    return (
+                                        <Link key={key} href={`/detail/tv/${getDetail.id}/season/${season.season_number}`}>
+                                            <li className="flex-1 cursor-pointer" style={{ minWidth: '20%' }}>
+                                                <Image 
+                                                    src={season.poster_path !== null ? `https://image.tmdb.org/t/p/original${season.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
+                                                    alt={season.name || season.original_name}
+                                                    width={500}
+                                                    height={670}
+                                                    className="rounded"
+                                                />
+                                            </li>
+                                        </Link>
+                                    )
+                                })}
+                            </ul>
+                            <h2 className="text-yellow-500 text-bold text-md md:text-2xl mt-2">Recommendations</h2>
+                            <ul className="grid grid-cols-8 gap-3 mb-3 mt-1">
+                                {recommendations.results.map((recom, key) => {
+                                    if(key < 8) {
+                                        return (
+                                            <Link href={`/detail/tv/${recom.id}-${slugify(recom.name, {
+                                                lower: true
+                                            })}`} key={key}>
+                                                <li className="group cursor-pointer">
+                                                    <Image 
+                                                        src={recom.poster_path !== null ? `https://image.tmdb.org/t/p/original${recom.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
+                                                        alt={recom.name || recom.original_name}
+                                                        width={500}
+                                                        height={670}
+                                                        className="rounded"
+                                                    />
+                                                    <span className="block cursor-pointer truncate text-sm -mt-1 text-gray-500 group-hover:underline">{recom.title}</span>
+                                                </li>
+                                            </Link>
+                                        )
+                                    }
+                                })}
+                            </ul> 
+                        </div>
+                        <div className="col-span-3">
+                            <ul className="list-none flex flex-col items-start justify-start space-y-2 mt-2">
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Status</span>
+                                    <span className="font-thin text-white text-sm text-opacity-70">{getDetail.status}</span>
+                                </li>
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Original language</span>
+                                    <span className="font-thin text-white text-sm text-opacity-70">{filterLanguage[0].english_name}</span>
+                                </li>
+                                <li className="flex flex-col items-start justify-start">
+                                    <span className="font-bold text-white text-md">Keywords</span>
+                                    <ul className="flex flex-wrap gap-2 mt-2">
+                                        {getDetail.keywords.results.map((keyword, key) => {
+                                            return (
+                                                <Link key={key} href={`/detail/keyword/${keyword.id}-${slugify(keyword.name, { lower: true })}`}>
+                                                    <li className="flex-auto text-sm text-white text-opacity-50 cursor-pointer hover:bg-opacity-50 transition duration-200 bg-gray-800 px-2 rounded text-center">{keyword.name}</li>
+                                                </Link>
+                                            )
+                                        })}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="md:hidden block">
                 <div className="h-96 min-h-full bg-cover bg-no-repeat bg-top relative" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.poster_path})` }}>
                     <div className="h-28 bg-gradient-to-t from-gray-900 absolute left-0 right-0 -bottom-1"></div>

@@ -43,7 +43,7 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                     {data.results.map((result, key) => {
                         if(total == "max") {
                             return (
-                                <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title, {
+                                <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title || result.name, {
                                     lower: true
                                 })}`}>
                                     <div className="cursor-pointer group">
@@ -61,7 +61,7 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                         } else {
                             if(key < total) {
                                 return (
-                                    <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title, {
+                                    <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title || result.name, {
                                         lower: true
                                     })}`}>
                                         <div className="cursor-pointer group">
