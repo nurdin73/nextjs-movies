@@ -16,7 +16,31 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                         </div>
                         <div>
                             <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
-                            <div className="h-3 mt-2 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
+                        </div>
+                        <div>
+                            <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
+                        </div>
+                        <div>
+                            <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
+                        </div>
+                        <div>
+                            <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
+                        </div>
+                        <div>
+                            <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
+                        </div>
+                        <div>
+                            <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
+                        </div>
+                        <div>
+                            <div className="h-52 bg-gradient-to-br from-gray-800 to-gray-900 rounded"></div>
+                            <div className="h-3 mt-2 bg-gradient-to-r from-gray-800 to-gray-900 rounded"></div>
                         </div>
                     </div>
                 </div>
