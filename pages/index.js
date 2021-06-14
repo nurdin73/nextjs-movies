@@ -21,6 +21,7 @@ export default function Home(props) {
     setTopRated(props.topRated)
     setUpcommingMovies(props.upcommingMovies)
   })
+
   // if(genreMovies === null && genresTv === null && popularMovies === null && nowPlaying === null && topRated === null && upcommingMovies === null) {
   //   return (
   //     <div>
@@ -46,7 +47,7 @@ export default function Home(props) {
   // }
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const tr = await fetch("https://api.themoviedb.org/3/movie/top_rated?api_key=f52aa1a7c260685a467d566a4b94825f")
   const topRated = await tr.json()
 
@@ -73,6 +74,6 @@ export async function getStaticProps() {
       upcommingMovies: upcommingMovies,
       genreMovies: genreMovies,
       genresTv: genresTv
-    }
+    },
   }
 }
