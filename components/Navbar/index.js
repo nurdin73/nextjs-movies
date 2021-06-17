@@ -1,9 +1,11 @@
 import { Menu, Transition } from '@headlessui/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
 import slugify from 'slugify'
 function Navbar() { 
+    const router = useRouter()
 
     const [openAutoComplete, setOpenAutoComplete] = useState(false)
     const [searchData, setSearchData] = useState([])
@@ -25,6 +27,11 @@ function Navbar() {
             setOpenAutoComplete(false)
             setSearchData([])
         }
+    }
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        router.push(`/search/${searchVal}`)
     }
 
     const handleClick = () => {
@@ -52,7 +59,7 @@ function Navbar() {
                     <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200 lg:order-1">LUX</span>
                 </Link>
                 <div className="w-3/4 md:w-1/2 block relative lg:order-2 order-3">
-                    <form className="relative">
+                    <form className="relative" onSubmit={handleSearchSubmit}>
                         <input type="text" defaultValue={searchVal} onKeyUp={handleKeyUp} placeholder="Search movie, person, tv show" className={`px-3 py-2 block w-full ${openAutoComplete === true ? 'rounded-t' : 'rounded'} text-yellow-500 bg-gray-800 border-0  outline-none`} />
                         <button type="submit" className="absolute right-2 top-2 outline-none border-0">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">

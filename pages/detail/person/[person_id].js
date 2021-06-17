@@ -142,10 +142,10 @@ const PersonDetail = forwardRef(({personDetail}, ref) => {
                     <div className="col-span-7">
                         <h1 className="text-3xl font-bold text-yellow-500 mb-3">{personDetail.name}</h1>
                         <span className="block text-lg text-white font-bold mb-2">Biography</span>
-                        <p className={`block italic text-sm font-thin text-white`}>
-                            <p className={readMore === false ? 'truncate' : ""}>{personDetail.biography}</p>
+                        <span className={`block italic text-sm font-thin text-white`}>
+                            <span className={`${readMore === false ? 'truncate' : ""} block`}>{personDetail.biography}</span>
                             <small onClick={handleReadMore} className="text-yellow-500 cursor-pointer underline">{ readMore === true ? "hide bio" : "readmore bio" }</small>
-                        </p>
+                        </span>
                         {/* <span className="block italic text-sm font-thin text-white">{personDetail.biography}</span> */}
                         <span className="block text-lg text-white font-bold my-2">Know for</span>
                         <ul className="grid grid-cols-7 gap-4 list-none">
@@ -260,16 +260,16 @@ const PersonDetail = forwardRef(({personDetail}, ref) => {
                     })}
                 </ul>
                 <span className="block text-gray-500">Biography</span>
-                <p className={`text-gray-600 text-opacity-70 text-justify text-sm`}>
-                    <p className={readMore === false ? 'truncate' : ""}>{personDetail.biography}</p>
+                <span className={`text-gray-600 text-opacity-70 text-justify text-sm`}>
+                    <span className={`${readMore === false ? 'truncate' : ""} block`}>{personDetail.biography}</span>
                     <small onClick={handleReadMore} className="text-yellow-500 underline">{ readMore === true ? "hide bio" : "readmore bio" }</small>
-                </p>
+                </span>
                 <span className="block text-gray-500">Know for</span>
                 <div className="grid grid-cols-3 gap-3">
                     {filterKnowFor.map((knowfor, i) => {
                         if(i < 3) {
                             return (
-                                <Link href={`/detail/movie/${knowfor.id}-${slugify(knowfor.title, {lower: true})}`}>
+                                <Link key={i} href={`/detail/movie/${knowfor.id}-${slugify(knowfor.title, {lower: true})}`}>
                                     <div className="group cursor-pointer">
                                         <Image 
                                             src={ knowfor.poster_path !== null ? `https://image.tmdb.org/t/p/original${knowfor.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
