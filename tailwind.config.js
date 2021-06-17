@@ -8,7 +8,15 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      inset: ['hover', 'focus'],
+      backgroundBlendMode: ['hover', 'focus'],
+      divideColor: ['group-hover'],
+      mixBlendMode: ['hover', 'focus'],
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }

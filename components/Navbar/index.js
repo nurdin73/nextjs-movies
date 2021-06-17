@@ -1,6 +1,7 @@
+import { Menu, Transition } from '@headlessui/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import slugify from 'slugify'
 function Navbar() { 
 
@@ -46,22 +47,11 @@ function Navbar() {
 
     return (
         <nav className="bg-gray-900 py-2 md:h-16 md:flex md:items-center">
-            <div className="md:container md:mx-auto flex justify-center flex-col md:flex-row items-center md:justify-between space-y-1 md:space-y-0 md:space-x-2">
+            <div className="md:container md:mx-auto md:px-3 xl:px-0 flex justify-center flex-col md:flex-row items-center md:justify-between space-y-1 md:space-y-0 md:space-x-2">
                 <Link href="/">
-                    <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200">LUX</span>
+                    <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200 lg:order-1">LUX</span>
                 </Link>
-                <div className="block md:hidden items-center space-x-3">
-                    <Link href="#">
-                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">TV show</span>
-                    </Link>
-                    <Link href="#">
-                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">Movies</span>
-                    </Link>
-                    <Link href="#">
-                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">People</span>
-                    </Link>
-                </div>
-                <div className="w-3/4 md:w-1/2 block relative">
+                <div className="w-3/4 md:w-1/2 block relative lg:order-2 order-3">
                     <form className="relative">
                         <input type="text" defaultValue={searchVal} onKeyUp={handleKeyUp} placeholder="Search movie, person, tv show" className={`px-3 py-2 block w-full ${openAutoComplete === true ? 'rounded-t' : 'rounded'} text-yellow-500 bg-gray-800 border-0  outline-none`} />
                         <button type="submit" className="absolute right-2 top-2 outline-none border-0">
@@ -134,16 +124,182 @@ function Navbar() {
                         </ul>
                     </div>
                 </div>
-                <div className="hidden md:flex items-center space-x-3">
-                    <Link href="#">
-                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">TV show</span>
-                    </Link>
-                    <Link href="#">
-                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">Movies</span>
-                    </Link>
-                    <Link href="#">
-                        <span className="text-yellow-500 hover:text-yellow-700 transition duration-200 cursor-pointer">People</span>
-                    </Link>
+                <div className="flex items-center space-x-3 lg:order-3 order-2">
+                    <Menu as="div" className="relative">
+                        <Menu.Button className="text-yellow-500 focus:outline-none focus:text-yellow-700 hover:text-yellow-700 transition duration-200 cursor-pointer">
+                            TV Show
+                        </Menu.Button>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="absolute md:left-0 lg:right-0 w-52 mt-2 z-10 origin-top-right bg-gray-900 divide-y divide-gray-100 shadow-lg focus:outline-none rounded">
+                                <div className="px-1 py-1">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/tv/popular`}>
+                                                <button
+                                                    className={`${
+                                                    active ? 'bg-violet-500 text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Popular
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/tv/airing_today`}>
+                                                <button
+                                                    className={`${
+                                                    active ? 'bg-violet-500 text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Airing Today
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/tv/on_the_air`}>
+                                                <button
+                                                    className={`${
+                                                    active ? 'bg-violet-500 text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    On TV
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/tv/top_rated`}>
+                                                <button
+                                                    className={`${
+                                                    active ? 'bg-violet-500 text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Top Rated
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+
+                    <Menu as="div" className="relative">
+                        <Menu.Button className="text-yellow-500 focus:outline-none focus:text-yellow-700 hover:text-yellow-700 transition duration-200 cursor-pointer">
+                            Movie
+                        </Menu.Button>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="absolute lg:right-0 -left-24 w-52 mt-2 z-10 origin-top-right bg-gray-900 divide-y divide-gray-100 shadow-lg focus:outline-none rounded">
+                            <div className="px-1 py-1">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/movie/popular`}>
+                                                <button
+                                                    className={`${
+                                                    active ? ' text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Popular
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/movie/now_playing`}>
+                                                <button
+                                                    className={`${
+                                                    active ? ' text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Now Playing
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/movie/upcoming`}>
+                                                <button
+                                                    className={`${
+                                                    active ? ' text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Upcoming
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/movie/top_rated`}>
+                                                <button
+                                                    className={`${
+                                                    active ? ' text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Top Rated
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+                    <Menu as="div" className="relative">
+                        <Menu.Button className="text-yellow-500 focus:outline-none focus:text-yellow-700 hover:text-yellow-700 transition duration-200 cursor-pointer">
+                            People
+                        </Menu.Button>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="absolute right-0 w-52 mt-2 z-10 origin-top-right bg-gray-900 divide-y divide-gray-100 shadow-lg focus:outline-none rounded">
+                                <div className="px-1 py-1">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <Link href={`/person/popular`}>
+                                                <button
+                                                    className={`${
+                                                    active ? ' text-gray-200 bg-gray-800' : 'text-gray-500'
+                                                    } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
+                                                >
+                                                    Popular
+                                                </button>
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
                 </div>
             </div>
         </nav>

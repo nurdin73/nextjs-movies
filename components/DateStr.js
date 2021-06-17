@@ -1,11 +1,11 @@
 function DateStr({date}) {
     const monthStr = [
-        { id: 0, name: "Janunary" },
+        { id: 0, name: "January" },
         { id: 1, name: "February" },
         { id: 2, name: "March" },
         { id: 3, name: "April" },
         { id: 4, name: "Mei" },
-        { id: 5, name: "Juny" },
+        { id: 5, name: "June" },
         { id: 6, name: "July" },
         { id: 7, name: "August" },
         { id: 8, name: "September" },

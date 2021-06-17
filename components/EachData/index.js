@@ -2,6 +2,7 @@ import { forwardRef, Fragment, useEffect, useState } from "react"
 import Image from 'next/image'
 import Link from "next/link"
 import slugify from "slugify"
+import DateStr from "../DateStr";
 
 const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
     if(data === null) {
@@ -70,15 +71,24 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                                 <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title || result.name, {
                                     lower: true
                                 })}`}>
-                                    <div className="cursor-pointer group">
-                                        <Image 
-                                            src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
-                                            alt={ result.title }
-                                            width={400}
-                                            height={580}
-                                            className="rounded"
-                                        />
-                                        <span className="truncate text-sm block text-white group-hover:underline">{result.title}</span>
+                                    <div className="cursor-pointer shadow-sm">
+                                        <div className="relative overflow-hidden group rounded">
+                                            <Image 
+                                                src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                                                alt={ result.title }
+                                                width={400}
+                                                height={580}
+                                                loading="lazy"
+                                            />
+                                            <span className="block absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-gray-400">{parseInt(result.vote_average).toFixed(1)}</span>
+                                            {/* <span className="absolute left-0 py-0.5 px-1 truncate text-gray-500 rounded-tr-lg bottom-11 text-xs lg:bg-gray-900 bg-gray-800 w-16 text-center">
+                                                {language[0].name}
+                                            </span> */}
+                                            <div className="absolute left-0 right-0 -bottom-0 px-1 py-1 lg:bg-gray-900 bg-gray-800 text-white">
+                                                <span className="truncate text-sm block -mb-2 text-white group-hover:underline">{result.title || result.original_title || result.name || result.original_name}</span>
+                                                <span style={{ fontSize: '.6rem' }} className="text-gray-500 italic leading-3"><DateStr date={result.release_date || result.first_air_date} /></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </Link>
                             )
@@ -88,16 +98,25 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                                     <Link ref={ref} key={key} href={`/detail/movie/${result.id}-${slugify(result.title || result.name, {
                                         lower: true
                                     })}`}>
-                                        <div className="cursor-pointer group">
+                                        <div className="cursor-pointer shadow-sm">
+                                        <div className="relative overflow-hidden group rounded">
                                             <Image 
-                                                src={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+                                                src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                                                 alt={ result.title }
                                                 width={400}
                                                 height={580}
-                                                className="rounded"
+                                                loading="lazy"
                                             />
-                                            <h1 className="truncate text-sm text-white group-hover:underline">{result.title}</h1>
+                                            <span className="block absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-gray-400">{result.vote_average}</span>
+                                            {/* <span className="absolute left-0 py-0.5 px-1 truncate text-gray-500 rounded-tr-lg bottom-11 text-xs lg:bg-gray-900 bg-gray-800 w-16 text-center">
+                                                {language[0].name}
+                                            </span> */}
+                                            <div className="absolute left-0 right-0 -bottom-0 px-1 py-1 lg:bg-gray-900 bg-gray-800 text-white">
+                                                <span className="truncate text-sm block -mb-2 text-white group-hover:underline">{result.title || result.original_title || result.name || result.original_name}</span>
+                                                <span style={{ fontSize: '.6rem' }} className="text-gray-500 italic leading-3"><DateStr date={result.release_date || result.first_air_date} /></span>
+                                            </div>
                                         </div>
+                                    </div>
                                     </Link>
                                 )
                             }
