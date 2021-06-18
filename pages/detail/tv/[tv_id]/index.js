@@ -140,7 +140,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                                 {getDetail.seasons.map((season, key) => {
                                     return (
                                         <Link key={key} href={`/detail/tv/${getDetail.id}/season/${season.season_number}`}>
-                                            <li className="flex-1 cursor-pointer" style={{ minWidth: '20%' }}>
+                                            <li className="flex-1 cursor-pointer max-w-xs">
                                                 <Image 
                                                     src={season.poster_path !== null ? `https://image.tmdb.org/t/p/original${season.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
                                                     alt={season.name || season.original_name}

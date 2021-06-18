@@ -80,7 +80,7 @@ const EachData = forwardRef(({ data, title, total = 8 }, ref) => {
                                                 height={580}
                                                 loading="lazy"
                                             />
-                                            <span className="block absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-gray-400">{parseInt(result.vote_average).toFixed(1)}</span>
+                                            <span className="block absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-gray-400">{result.vote_average.toFixed(1)}</span>
                                             {/* <span className="absolute left-0 py-0.5 px-1 truncate text-gray-500 rounded-tr-lg bottom-11 text-xs lg:bg-gray-900 bg-gray-800 w-16 text-center">
                                                 {language[0].name}
                                             </span> */}

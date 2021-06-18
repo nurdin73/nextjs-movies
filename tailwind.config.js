@@ -13,6 +13,8 @@ module.exports = {
       backgroundBlendMode: ['hover', 'focus'],
       divideColor: ['group-hover'],
       mixBlendMode: ['hover', 'focus'],
+      transform: ['group-hover'],
+      translate: ['group-hover']
     },
   },
   plugins: [
