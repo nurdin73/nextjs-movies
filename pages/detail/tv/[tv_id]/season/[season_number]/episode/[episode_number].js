@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Fragment } from "react";
 
-function EpisodeDetail({ tvEpisode }) {  
+function EpisodeDetail({ tvEpisode }) {
     return (
         <Fragment>
             <Head>

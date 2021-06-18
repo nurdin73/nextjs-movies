@@ -4,6 +4,7 @@ import Link from "next/link"
 import {useRouter} from 'next/router'
 import { Fragment, useState } from "react"
 import slugify from "slugify"
+import Card from "../../components/Card"
 import DateStr from "../../components/DateStr"
 import { pagination } from "../../components/Pagination"
 
@@ -45,12 +46,12 @@ function Search({response}) {
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto md:overflow-hidden">
                     {data !== null ? data.results.map((result, i) => {
                         return (
-                            <List result={result} key={i} media_type={result.media_type} />
+                            <Card imgWidth={400} imgHeight={580} result={result} key={i} type={result.media_type} link={`/detail/${result.media_type}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
                         )
                     }) :
                     response.results.map((result, i) => {
                         return (
-                            <List result={result} key={i} media_type={result.media_type} />
+                            <Card imgWidth={400} imgHeight={580} result={result} key={i} type={result.media_type} link={`/detail/${result.media_type}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
                         )
                     })
                     }
@@ -89,33 +90,6 @@ function Search({response}) {
         </Fragment>
     )
 }
-
-function List({ result, media_type }) {
-    var rating = media_type === "person" ? result.popularity.toFixed(1) : result.vote_average
-    return (
-        <Link href={`/detail/${media_type}/${result.id}-${slugify(result.title || result.name, {
-            lower: true
-        })}`}>
-            <li className="cursor-pointer shadow-sm">
-                <div className="relative overflow-hidden group rounded">
-                    <Image 
-                        src={`https://image.tmdb.org/t/p/w500${result.poster_path || result.profile_path}`}
-                        alt={ result.title || result.name }
-                        width={400}
-                        height={580}
-                        loading="lazy"
-                    />
-                    <span className="block truncate px-1 absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-gray-400">{rating}</span>
-                    <div className="absolute left-0 right-0 -bottom-0 px-1 py-1 lg:bg-gray-900 bg-gray-800 text-white">
-                        <span className="truncate text-sm block -mb-2 text-white group-hover:underline">{result.title || result.original_title || result.name || result.original_name}</span>
-                        <span style={{ fontSize: '.6rem' }} className="text-gray-500 italic leading-3">{media_type === "person" ? result.known_for_department : <DateStr date={result.release_date || result.first_air_date || new Date()} />}</span>
-                    </div>
-                </div>
-            </li>
-        </Link>
-    )
-}
-
 
 export async function getServerSideProps(context) {
     const { key } = context.query

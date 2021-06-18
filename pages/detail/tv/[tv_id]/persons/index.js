@@ -26,10 +26,11 @@ function ListPersonByMovie({getListCredits, getDetailMovie}) {
             </Head>
             <BannerHeading 
                 title={getDetailMovie.name || getDetailMovie.original_name} 
-                id_movie={getDetailMovie.id}
+                id_={getDetailMovie.id}
                 tagline={getDetailMovie.tagline}
                 poster={getDetailMovie.poster_path}
                 release_date={getDetailMovie.first_air_date}
+                urlPage={`/detail/tv/${getDetailMovie.id}-${slugify(getDetailMovie.name || getDetailMovie.original_name, {lower: true})}`}
             />
             <div className="md:container md:mx-auto mx-3 mt-3">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-3">

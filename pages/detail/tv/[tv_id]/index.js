@@ -6,6 +6,7 @@ import slugify from "slugify";
 import DateStr from "../../../../components/DateStr";
 import EachData from "../../../../components/EachData";
 import TopBilledCast from "../../../../components/TopBilledCast";
+import Card from '../../../../components/Card'
 
 function TVDetail({ getDetail, languages, recommendations }) { 
 
@@ -157,20 +158,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                                 {recommendations.results.map((recom, key) => {
                                     if(key < 8) {
                                         return (
-                                            <Link href={`/detail/tv/${recom.id}-${slugify(recom.name, {
-                                                lower: true
-                                            })}`} key={key}>
-                                                <li className="group cursor-pointer">
-                                                    <Image 
-                                                        src={recom.poster_path !== null ? `https://image.tmdb.org/t/p/original${recom.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
-                                                        alt={recom.name || recom.original_name}
-                                                        width={500}
-                                                        height={670}
-                                                        className="rounded"
-                                                    />
-                                                    <span className="block cursor-pointer truncate text-sm -mt-1 text-gray-500 group-hover:underline">{recom.title}</span>
-                                                </li>
-                                            </Link>
+                                            <Card key={key} type="tv" result={recom} imgWidth={500} imgHeight={670} link={`/detail/tv/${recom.id}-${slugify(recom.name, {lower: true})}`} />
                                         )
                                     }
                                 })}
@@ -318,20 +306,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                         {recommendations.results.map((recom, key) => {
                             if(key < 3) {
                                 return (
-                                    <Link href={`/detail/tv/${recom.id}-${slugify(recom.name, {
-                                        lower: true
-                                    })}`} key={key}>
-                                        <li className="group">
-                                            <Image 
-                                                src={recom.poster_path !== null ? `https://image.tmdb.org/t/p/original${recom.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
-                                                alt={recom.name || recom.original_name}
-                                                width={500}
-                                                height={670}
-                                                className="rounded"
-                                            />
-                                            <span className="block truncate text-sm -mt-1 text-gray-500 group-hover:underline">{recom.title}</span>
-                                        </li>
-                                    </Link>
+                                    <Card key={key} type="tv" result={recom} imgWidth={500} imgHeight={670} link={`/detail/tv/${recom.id}-${slugify(recom.name, {lower: true})}`} />
                                 )
                             }
                         })}

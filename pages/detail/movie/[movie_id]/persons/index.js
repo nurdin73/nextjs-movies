@@ -30,6 +30,7 @@ function ListPersonByMovie({getListCredits, getDetailMovie}) {
                 tagline={getDetailMovie.tagline}
                 poster={getDetailMovie.poster_path}
                 release_date={getDetailMovie.release_date}
+                urlPage={`/detail/movie/${getDetailMovie.id}-${slugify(getDetailMovie.title || getDetailMovie.original_title, {lower: true})}`}
             />
             <div className="md:container md:mx-auto mx-3 mt-3">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
