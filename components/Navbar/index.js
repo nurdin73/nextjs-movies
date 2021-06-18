@@ -20,7 +20,7 @@ function Navbar() {
             const search = await req.json()
             setSearchData(search.results)
         }
-        if(value.length >= 5) {
+        if(value.length >= 3) {
             setOpenAutoComplete(true)
             requestData()
         } else {
