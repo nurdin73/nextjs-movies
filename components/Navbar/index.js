@@ -31,7 +31,10 @@ function Navbar() {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        router.push(`/search/${searchVal}`)
+        router.replace({
+            pathname: `/search/[key]`,
+            query: {key: searchVal}
+        })
     }
 
     const handleClick = () => {
