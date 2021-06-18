@@ -21,8 +21,8 @@ function DateStr({date}) {
             return month
         }
     })
-    
-    const dateStr = getMonth[0].name + ", " + dateClass.getDate() + " " + dateClass.getFullYear()
+    const monthResult = getMonth.length > 0 && getMonth[0].name
+    const dateStr = monthResult + ", " + dateClass.getDate() + " " + dateClass.getFullYear()
 
     return (
         <span>{dateStr}</span>
