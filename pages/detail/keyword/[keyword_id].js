@@ -41,12 +41,12 @@ function MovieByKeyword({ getDetail, getMovies }) {
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto md:overflow-hidden">
                     {data !== null ? data.results.map((result, i) => {
                             return (
-                                <Card imgWidth={400} imgHeight={580} result={result} key={i} type={result.media_type} link={`/detail/${result.media_type}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
+                                <Card imgWidth={400} imgHeight={580} result={result} key={i} type="movie" link={`/detail/movie/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
                             )
                         }) :
                         getMovies.results.map((result, i) => {
                             return (
-                                <Card imgWidth={400} imgHeight={580} result={result} key={i} type={result.media_type} link={`/detail/${result.media_type}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
+                                <Card imgWidth={400} imgHeight={580} result={result} key={i} type="movie" link={`/detail/movie/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
                             )
                         })
                     }
