@@ -293,7 +293,32 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                             </ul>
                         </li>
                     </ul>
-
+                    {getDetail.belongs_to_collection !== null ? 
+                    <div className="relative md:h-64 h-28 mb-2 my-4">
+                        <div className="h-full relative overflow-hidden rounded">
+                            <div className="h-full relative p-0 m-0">
+                                <div className="absolute top-0 bottom-0 left-0 right-0 w-full transition duration-300 overflow-hidden">
+                                    <div className="relative overflow-hidden bg-gradient-to-r from-black to-transparent">
+                                        <Image 
+                                            src={`https://image.tmdb.org/t/p/w1440_and_h320_multi_faces${getDetail.belongs_to_collection.backdrop_path}`}
+                                            width={1440}
+                                            height={500}
+                                            alt={getDetail.belongs_to_collection.name || getDetail.belongs_to_collection.title}
+                                            className="w-full h-full object-cover rounded-md lg:rounded-none mix-blend-overlay"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col">
+                                        <Link href={`/detail/collection/${getDetail.belongs_to_collection.id}-${slugify(getDetail.belongs_to_collection.name || getDetail.belongs_to_collection.title, { lower:true })}`}>
+                                            <span className="md:text-xl text-md w-full truncate block cursor-pointer hover:underline text-gray-200 font-bold">Part of the {getDetail.belongs_to_collection.name || getDetail.belongs_to_collection.title}</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    : ""
+                    }
                     <h2 className="mt-2 text-gray-500 text-lg">Recommendations</h2>
                     <ul className="grid grid-cols-3 gap-3">
                         {recommendations.results.map((recom, key) => {
