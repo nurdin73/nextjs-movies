@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import EachData from '../../../../components/EachData';
@@ -8,6 +8,12 @@ import TopBilledCast from '../../../../components/TopBilledCast';
 import DateStr from '../../../../components/DateStr';
 
 function DetailMovie({ getDetail, recommendations, languages }) {
+    const [collections, setCollection] = useState(null)
+
+    const openModal = (idColection) => () => {
+
+    }
+
     var crewPopular = getDetail.credits.crew.filter(crew => {
         if(crew.popularity >= 1) {
             return crew.job == "Screenplay"  || crew.job == "Story" || crew.job == "Director" || crew.job == "Novel"
@@ -129,6 +135,32 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                                 }
                             </div>
                             <ReviewList reviews={getDetail.reviews} />
+                            {getDetail.belongs_to_collection !== null ? 
+                            <div className="relative h-64 mb-2 my-4">
+                                <div className="h-full relative overflow-hidden rounded">
+                                    <div className="h-full relative p-0 m-0">
+                                        <div className="absolute top-0 bottom-0 left-0 right-0 w-full transition duration-300 overflow-hidden">
+                                            <div className="relative overflow-hidden bg-gradient-to-r from-black to-transparent">
+                                                <Image 
+                                                    src={`https://image.tmdb.org/t/p/w1440_and_h320_multi_faces${getDetail.belongs_to_collection.backdrop_path}`}
+                                                    width={1440}
+                                                    height={500}
+                                                    alt={getDetail.belongs_to_collection.name || getDetail.belongs_to_collection.title}
+                                                    className="w-full h-full object-cover rounded-md lg:rounded-none mix-blend-overlay"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                            <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col">
+                                                <Link href={`/detail/collection/${getDetail.belongs_to_collection.id}-${slugify(getDetail.belongs_to_collection.name || getDetail.belongs_to_collection.title, { lower:true })}`}>
+                                                    <span className="md:text-xl text-md w-full truncate block cursor-pointer hover:underline text-gray-200 font-bold">Part of the {getDetail.belongs_to_collection.name || getDetail.belongs_to_collection.title}</span>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            : ""
+                            }
                             <EachData data={recommendations} title="Recommendations" />
                         </div>
                         <div className="col-span-3">
@@ -297,6 +329,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                     </ul>            
                 </div>
             </div>
+            
         </Fragment>
     )
 } 
@@ -398,12 +431,11 @@ export function ReviewList({ reviews = [], total = 1 }) {
 
 export async function getServerSideProps(context) {  
     const { movie_id } = context.query
-    const movieId = movie_id.split('-')[0]
     
-    const detailReq = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=f52aa1a7c260685a467d566a4b94825f&append_to_response=credits,keywords,videos,images,reviews,release_dates`)
+    const detailReq = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=f52aa1a7c260685a467d566a4b94825f&append_to_response=credits,keywords,videos,images,reviews,release_dates`)
     const getDetail = await detailReq.json()
 
-    const sm = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const sm = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=f52aa1a7c260685a467d566a4b94825f`)
     const recommendations = await sm.json()
 
     const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=f52aa1a7c260685a467d566a4b94825f`)
