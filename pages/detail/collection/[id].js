@@ -17,7 +17,7 @@ function Collection({ collection }) {
                 <meta property="og:image:width" content="245" />
                 <meta property="og:image:height" content="71" />
             </Head>
-            <div className="hidden sm:block">
+            <div className="hidden md:block">
                 <div className="min-h-full md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${collection.backdrop_path})` }}>
                     <div className="bg-gray-900 bg-opacity-90 bg-cover min-h-full">
                         <div className="container mx-auto py-8 px-4">
@@ -44,7 +44,25 @@ function Collection({ collection }) {
                     </div>
                 </div>  
                 <div className="mx-3 xl:container xl:mx-auto px-4 pt-2 pb-3">
+                    <h2 className="mt-2 text-yellow-500 text-lg">Parts</h2>
                     <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 overflow-x-auto md:overflow-hidden mt-4">
+                        {collection.parts.map((part, key) => {
+                            return (
+                                <Card key={key} result={part} link={`/detail/movie/${part.id}-${slugify(part.title || part.name || part.original_name || part.original_title, {lower: true})}`} imgHeight={580} imgWidth={400} type="movie" />
+                            )
+                        })}
+                    </ul>
+                </div>
+            </div>
+            <div className="block md:hidden">
+                <div className="h-96 min-h-full bg-cover bg-no-repeat bg-top relative" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${collection.poster_path})` }}>
+                    <div className="h-28 bg-gradient-to-t from-gray-900 absolute left-0 right-0 -bottom-1"></div>
+                </div>
+                <div className="px-3 py-2">
+                    <h2 className="mt-2 text-yellow-500 text-lg">{collection.title || collection.original_title || collection.original_name || collection.name}</h2>
+                    <span className="text-gray-500 text-sm text-justify block">{collection.overview}</span>
+                    <h2 className="mt-2 text-gray-500 text-lg">Parts</h2>
+                    <ul className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 overflow-x-auto md:overflow-hidden mt-4">
                         {collection.parts.map((part, key) => {
                             return (
                                 <Card key={key} result={part} link={`/detail/movie/${part.id}-${slugify(part.title || part.name || part.original_name || part.original_title, {lower: true})}`} imgHeight={580} imgWidth={400} type="movie" />

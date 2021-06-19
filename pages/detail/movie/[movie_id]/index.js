@@ -200,16 +200,6 @@ function DetailMovie({ getDetail, recommendations, languages }) {
             </div>
             <div className="block sm:hidden">
                 <div className="h-96 min-h-full bg-cover bg-no-repeat bg-top relative" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.poster_path})` }}>
-                    {/* <div className="flex fixed left-0 right-0 z-20 justify-between items-center bg-gray-900 px-3 py-2 bg-opacity-60">
-                        <Link href="/">
-                            <button className="outline-none focus:outline-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                        </Link>
-                        <span className="text-yellow-500 font-bold truncate">{ getDetail.title || getDetail.original_name }</span>
-                    </div> */}
                     <div className="h-28 bg-gradient-to-t from-gray-900 absolute left-0 right-0 -bottom-1"></div>
                 </div>
                 <div className="px-3 py-2">
