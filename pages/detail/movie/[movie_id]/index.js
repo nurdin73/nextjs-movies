@@ -6,9 +6,10 @@ import EachData from '../../../../components/EachData';
 import slugify from 'slugify';
 import TopBilledCast from '../../../../components/TopBilledCast';
 import DateStr from '../../../../components/DateStr';
+import Media from '../../../../components/Media';
 
 function DetailMovie({ getDetail, recommendations, languages }) {
-    const [collections, setCollection] = useState(null)
+    const [mediaView, setMediaView] = useState('videos')
 
     const openModal = (idColection) => () => {
 
@@ -36,7 +37,9 @@ function DetailMovie({ getDetail, recommendations, languages }) {
         }
     }) : castPopular
 
-
+    const handleClickMedia = (media = "videos") => () => {
+        setMediaView(media)
+    }
     
 
     return (
@@ -161,6 +164,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                             </div>    
                             : ""
                             }
+                            <Media videos={getDetail.videos} backdrops={getDetail.images.backdrops} posters={getDetail.images.posters} />
                             <EachData data={recommendations} title="Recommendations" />
                         </div>
                         <div className="col-span-3">
@@ -319,6 +323,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                     </div>    
                     : ""
                     }
+                    <Media videos={getDetail.videos} backdrops={getDetail.images.backdrops} posters={getDetail.images.posters} />
                     <h2 className="mt-2 text-gray-500 text-lg">Recommendations</h2>
                     <ul className="grid grid-cols-3 gap-3">
                         {recommendations.results.map((recom, key) => {
