@@ -1,6 +1,6 @@
 // next.config.js
 module.exports = {
     images: {
-        domains: ['image.tmdb.org', "thumbs.dreamstime.com"],
+        domains: ['image.tmdb.org', "thumbs.dreamstime.com", "img.youtube.com"],
     },
 }
