@@ -7,6 +7,7 @@ import DateStr from "../../../../components/DateStr";
 import EachData from "../../../../components/EachData";
 import TopBilledCast from "../../../../components/TopBilledCast";
 import Card from '../../../../components/Card'
+import Media from "../../../../components/Media";
 
 function TVDetail({ getDetail, languages, recommendations }) { 
 
@@ -153,6 +154,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                                     )
                                 })}
                             </ul>
+                            <Media videos={getDetail.videos} backdrops={getDetail.images.backdrops} posters={getDetail.images.posters} />
                             <h2 className="text-yellow-500 text-bold text-md md:text-2xl mt-2">Recommendations</h2>
                             <ul className="grid grid-cols-8 gap-3 mb-3 mt-1">
                                 {recommendations.results.map((recom, key) => {
@@ -301,6 +303,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                             </ul>
                         </li>
                     </ul>
+                    <Media videos={getDetail.videos} backdrops={getDetail.images.backdrops} posters={getDetail.images.posters} />
                     <h2 className="mt-2 text-gray-500 text-lg">Recommendations</h2>
                     <ul className="grid grid-cols-3 gap-3">
                         {recommendations.results.map((recom, key) => {
