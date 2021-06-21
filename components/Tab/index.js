@@ -28,8 +28,8 @@ const Tab = forwardRef(({dataset, title, type = [], isTrending = false, language
 
     return (
         <Fragment>
-            <div className="flex items-center justify-between my-3">
-                <h3 className="text-md sm:text-lg md:text-xl lg:text-2xl text-yellow-500 font-bold">{title}</h3>
+            <div className="flex items-center justify-between my-3 border-b-4 border-gray-800 md:border-none">
+                <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl text-yellow-500 font-bold">{title}</h3>
                 <ul className="flex items-center justify-start space-x-2">
                     {
                         type.map((ty, i) => {

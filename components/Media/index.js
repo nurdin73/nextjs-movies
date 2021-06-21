@@ -27,9 +27,9 @@ function Media({ videos, backdrops, posters }) {
             <div className="flex justify-between items-center mt-3">
                 <span className="block text-lg py-1 md:text-yellow-500 text-gray-500">Media</span>
                 <ul className="flex items-center justify-end space-x-2">
-                    <li onClick={handleClickMedia('videos')} className={`${mediaView === "videos" ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded-2xl text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>Videos[{videos.results.length}]</li>
-                    <li onClick={handleClickMedia('backdrops')} className={`${mediaView === "backdrops" ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded-2xl text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>Backdrops[{backdrops.length}]</li>
-                    <li onClick={handleClickMedia('posters')} className={`${mediaView === "posters" ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded-2xl text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>Posters[{posters.length}]</li>
+                    <li onClick={handleClickMedia('videos')} className={`${mediaView === "videos" ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>Videos[{videos.results.length}]</li>
+                    <li onClick={handleClickMedia('backdrops')} className={`${mediaView === "backdrops" ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>Backdrops[{backdrops.length}]</li>
+                    <li onClick={handleClickMedia('posters')} className={`${mediaView === "posters" ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>Posters[{posters.length}]</li>
                 </ul>
             </div>
             <ul className="md:mt-3 mt-1">
