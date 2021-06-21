@@ -20,7 +20,7 @@ function Banner({results}) {
                             />
                         </div>
                         <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col bg-gradient-to-t from-gray-900 to-transparent">
-                            <span className="bg-yellow-500 bg-opacity-40 px-5 text-sm">{results[0].vote_average}</span>
+                            <span className="bg-yellow-500 bg-opacity-40 px-5 text-sm rounded">{results[0].vote_average}</span>
                             <Link href={`/detail/${results[0].media_type}/${results[0].id}-${slugify(results[0].name || results[0].title, { lower:true })}`}>
                                 <span className="text-lg w-full truncate block cursor-pointer hover:underline text-gray-200 font-bold">{results[0].name || results[0].title}</span>
                             </Link>
@@ -43,7 +43,7 @@ function Banner({results}) {
                                 />
                             </div>
                             <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col bg-gradient-to-t from-gray-900 to-transparent">
-                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs">{results[1].vote_average}</span>
+                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs rounded">{results[1].vote_average}</span>
                                 <Link href={`/detail/${results[1].media_type}/${results[1].id}-${slugify(results[1].name || results[1].title, { lower:true })}`}>
                                     <span className="text-md w-full truncate cursor-pointer hover:underline text-gray-200 font-bold">{results[1].name || results[1].title}</span>
                                 </Link>
@@ -64,7 +64,7 @@ function Banner({results}) {
                                 />
                             </div>
                             <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col bg-gradient-to-t from-gray-900 to-transparent">
-                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs">{results[2].vote_average}</span>
+                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs rounded">{results[2].vote_average}</span>
                                 <Link href={`/detail/${results[2].media_type}/${results[2].id}-${slugify(results[2].name || results[2].title, { lower:true })}`}>
                                     <span className="text-md w-full truncate cursor-pointer hover:underline text-gray-200 font-bold">{results[2].name || results[2].title}</span>
                                 </Link>
@@ -85,7 +85,7 @@ function Banner({results}) {
                                 />
                             </div>
                             <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col bg-gradient-to-t from-gray-900 to-transparent">
-                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs">{results[3].vote_average}</span>
+                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs rounded">{results[3].vote_average}</span>
                                 <Link href={`/detail/${results[3].media_type}/${results[3].id}-${slugify(results[3].name || results[3].title, { lower:true })}`}>
                                     <span className="text-md w-full truncate cursor-pointer hover:underline text-gray-200 font-bold">{results[3].name || results[3].title}</span>
                                 </Link>
@@ -106,7 +106,7 @@ function Banner({results}) {
                                 />
                             </div>
                             <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col bg-gradient-to-t from-gray-900 to-transparent">
-                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs">{results[4].vote_average}</span>
+                                <span className="bg-yellow-500 bg-opacity-40 px-2.5 text-xs rounded">{results[4].vote_average}</span>
                                 <Link href={`/detail/${results[4].media_type}/${results[4].id}-${slugify(results[4].name || results[4].title, { lower:true })}`}>
                                     <span className="text-md w-full truncate cursor-pointer hover:underline text-gray-200 font-bold">{results[4].name || results[4].title}</span>
                                 </Link>

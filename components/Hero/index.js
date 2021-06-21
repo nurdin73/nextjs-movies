@@ -22,7 +22,7 @@ function Hero({ result, title = "" }) {
                                 />
                             </div>
                             <div className="absolute p-2 bottom-0 left-0 right-0 flex justify-start items-start flex-col bg-gradient-to-t from-gray-900 to-transparent">
-                                <span className="bg-yellow-500 bg-opacity-40 md:px-5 md:text-sm px-3 text-xs">{result.vote_average}</span>
+                                <span className="bg-yellow-500 bg-opacity-40 md:px-5 md:text-sm px-3 text-xs rounded">{result.vote_average}</span>
                                 <Link href={`/detail/${result.media_type}/${result.id}-${slugify(result.name || result.title, { lower:true })}`}>
                                     <span className="md:text-xl text-md w-full truncate block cursor-pointer hover:underline text-gray-200 font-bold">{result.name || result.title}</span>
                                 </Link>

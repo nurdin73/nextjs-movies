@@ -34,7 +34,7 @@ const Tab = forwardRef(({dataset, title, type = [], isTrending = false, language
                     {
                         type.map((ty, i) => {
                             return (
-                                <li key={i} onClick={handleClickTab(ty.name, ty.type)} className={`${activeTab === ty.name ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded-2xl text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>{ty.title}</li>
+                                <li key={i} onClick={handleClickTab(ty.name, ty.type)} className={`${activeTab === ty.name ? 'bg-yellow-800' : "lg:bg-gray-900 bg-gray-800"} lg:px-4 py-0.5 px-2 shadow-sm rounded text-gray-300 hover:bg-yellow-800 transition duration-200 cursor-pointer text-xs lg:text-lg`}>{ty.title}</li>
                             )
                         })
                     }
@@ -78,7 +78,7 @@ function PosterMovieTv({result, tab, ref, languages}) {
                         height={580}
                         loading="lazy"
                     />
-                    <span className="block absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-gray-400">{result.vote_average}</span>
+                    <span className="block absolute right-0 rounded-bl-lg border-gray-500 shadow-md rounded-tr-sm text-sm top-0 w-10 text-center font-bold py-0.5 lg:bg-gray-900 bg-gray-800 text-yellow-500">{result.vote_average}</span>
                     <span className="absolute left-0 py-0.5 px-1 truncate text-gray-500 rounded-tr-lg bottom-11 text-xs lg:bg-gray-900 bg-gray-800 w-16 text-center">
                         {language[0].name}
                     </span>
