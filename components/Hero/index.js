@@ -3,11 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import slugify from 'slugify'
 import DateStr from '../DateStr'
-function Hero({ result, title = "" }) {
+function Hero({ result, title = "", h = 40, sm = 64, md = 72, lg = 96, isHidden = false }) {
     return (
         <Fragment>
             {/* <h3 className="text-md sm:text-lg md:text-xl lg:text-2xl text-yellow-500 font-bold my-3">{title}</h3> */}
-            <div className="relative h-40 sm:h-64 lg:h-96 mb-2 my-4">
+            <div className={`relative h-${h} sm:h-${sm} md:h-${md} lg:h-${lg} mb-2 my-4 ${isHidden && `hidden md:block`}`}>
                 <div className="h-full relative overflow-hidden rounded">
                     <div className="h-full relative p-0 m-0">
                         <div className="absolute top-0 bottom-0 left-0 right-0 w-full transition duration-300 overflow-hidden">
