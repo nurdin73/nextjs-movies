@@ -34,7 +34,7 @@ function Search({response}) {
             setPrevDisabled(paginations.currentPage === 1 ? true : false)
             setNextDisabled(paginations.currentPage === paginations.totalPages ? true : false)
         }
-        getData(`https://api.themoviedb.org/3/search/multi?api_key=f52aa1a7c260685a467d566a4b94825f&query=${key}&page=${pageNumber}`)
+        getData(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.API_KEY}&query=${key}&page=${pageNumber}`)
     }
 
     return (
@@ -93,7 +93,7 @@ function Search({response}) {
 
 export async function getServerSideProps(context) {
     const { key } = context.query
-    const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=f52aa1a7c260685a467d566a4b94825f&query=${key}`)
+    const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=$P{https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.API_KEY}&query=${key}`)
     const response = await res.json()
     return {
         props: {

@@ -19,7 +19,7 @@ function SeasonDetail({ tvSeason, tvDetail }) {
             const response = await res.json()
             setData(response)
         }
-        getData(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}/episode/${episode_number}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+        getData(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}/episode/${episode_number}?api_key=${process.env.API_KEY}`)
     }
 
     const closeModal = () => {
@@ -148,10 +148,10 @@ function SeasonDetail({ tvSeason, tvDetail }) {
 
 export async function getServerSideProps(context) {  
     const { season_number, tv_id } = context.query
-    const api = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const api = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}?api_key=${process.env.API_KEY}`)
     const tvSeason = await api.json()
 
-    const api2 = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const api2 = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}?api_key=${process.env.API_KEY}`)
     const tvDetail = await api2.json()
 
     return {

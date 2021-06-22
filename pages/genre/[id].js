@@ -24,7 +24,7 @@ const GenreDetail = forwardRef(({movieByGenre}, ref) => {
 export async function getServerSideProps(context) {
     const { id } = context.query
     const idGenre = id.split('-')[0]
-    const requestMovieByGenre = await fetch(`https://api.themoviedb.org/3/genre/${idGenre}/movies?api_key=f52aa1a7c260685a467d566a4b94825f`) 
+    const requestMovieByGenre = await fetch(`https://api.themoviedb.org/3/genre/${idGenre}/movies?api_key=${process.env.API_KEY}`) 
     const movieByGenre = await requestMovieByGenre.json()
 
     return {

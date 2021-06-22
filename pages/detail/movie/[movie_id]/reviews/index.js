@@ -36,10 +36,10 @@ function getReviewsByMovie({ getDetailMovie, getListReviews }) {
 export async function getServerSideProps(context) {
     const { movie_id } = context.query
 
-    const reviews = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const reviews = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=${process.env.API_KEY}`)
     const getListReviews = await reviews.json()
 
-    const detailMovie = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const detailMovie = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.API_KEY}`)
     const getDetailMovie = await detailMovie.json()
 
     return {

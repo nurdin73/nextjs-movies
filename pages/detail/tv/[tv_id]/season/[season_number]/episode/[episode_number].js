@@ -22,7 +22,7 @@ function EpisodeDetail({ tvEpisode }) {
 
 export async function getServerSideProps(context) {  
     const { season_number, tv_id, episode_number } = context.query
-    const api = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}/episode/${episode_number}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const api = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/season/${season_number}/episode/${episode_number}?api_key=${process.env.API_KEY}`)
     const tvEpisode = await api.json()
 
     return {

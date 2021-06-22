@@ -35,7 +35,7 @@ function ListTv({ response }) {
             setPrevDisabled(paginations.currentPage === 1 ? true : false)
             setNextDisabled(paginations.currentPage === paginations.totalPages ? true : false)
         }
-        getData(`https://api.themoviedb.org/3/${media}/${list}?api_key=f52aa1a7c260685a467d566a4b94825f&page=${pageNumber}`)
+        getData(`https://api.themoviedb.org/3/${media}/${list}?api_key=${process.env.API_KEY}&page=${pageNumber}`)
     }
     return (
         <Fragment>
@@ -122,7 +122,7 @@ function List({ result, media_type }) {
 export async function getServerSideProps(context) {
     const { media, list } = context.query
     const baseUrl = "https://api.themoviedb.org/3/"
-    const res = await fetch(`${baseUrl}${media}/${list}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const res = await fetch(`${baseUrl}${media}/${list}?api_key=${process.env.API_KEY}`)
     const response = await res.json()
     return {
         props: {

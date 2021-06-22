@@ -77,7 +77,7 @@ function Collection({ collection }) {
 
 export async function getServerSideProps(context) {
     const {id} = context.query
-    const res = await fetch(`https://api.themoviedb.org/3/collection/${id}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const res = await fetch(`https://api.themoviedb.org/3/collection/${id}?api_key=${process.env.API_KEY}`)
     const collection = await res.json()
     return {
         props: {

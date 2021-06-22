@@ -59,7 +59,7 @@ function Navbar() {
         <nav className="bg-gray-900 py-2 md:h-16 md:flex md:items-center">
             <div className="md:container md:mx-auto md:px-3 flex justify-center flex-col md:flex-row items-center md:justify-between space-y-1 md:space-y-0 md:space-x-2">
                 <Link href="/">
-                    <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200 lg:order-1">LUX</span>
+                    <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200 lg:order-1">{process.env.APP_NAME}</span>
                 </Link>
                 <div className="w-3/4 md:w-1/2 block relative lg:order-2 order-3">
                     <form className="relative" onSubmit={handleSearchSubmit}>

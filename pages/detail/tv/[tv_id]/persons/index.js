@@ -102,10 +102,10 @@ function ListPersonByMovie({getListCredits, getDetailMovie}) {
 export async function getServerSideProps(context) {
     const { tv_id } = context.query
 
-    const credits = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/credits?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const credits = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}/credits?api_key=${process.env.API_KEY}`)
     const getListCredits = await credits.json()
 
-    const detailMovie = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const detailMovie = await fetch(`https://api.themoviedb.org/3/tv/${tv_id}?api_key=${process.env.API_KEY}`)
     const getDetailMovie = await detailMovie.json()
 
     return {

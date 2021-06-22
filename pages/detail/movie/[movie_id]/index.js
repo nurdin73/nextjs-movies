@@ -452,13 +452,13 @@ export function ReviewList({ reviews = [], total = 1 }) {
 export async function getServerSideProps(context) {  
     const { movie_id } = context.query
     
-    const detailReq = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=f52aa1a7c260685a467d566a4b94825f&append_to_response=credits,keywords,videos,images,reviews,release_dates`)
+    const detailReq = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.API_KEY}&append_to_response=credits,keywords,videos,images,reviews,release_dates`)
     const getDetail = await detailReq.json()
 
-    const sm = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const sm = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process.env.API_KEY}`)
     const recommendations = await sm.json()
 
-    const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=${process.env.API_KEY}`)
     const languages = await reqLang.json()
 
     return {

@@ -30,7 +30,7 @@ function MovieByKeyword({ getDetail, getMovies }) {
             setPrevDisabled(paginations.currentPage === 1 ? true : false)
             setNextDisabled(paginations.currentPage === paginations.totalPages ? true : false)
         }
-        getData(`https://api.themoviedb.org/3/keyword/${getDetail.id}/movies?api_key=f52aa1a7c260685a467d566a4b94825f&page=${pageNumber}`)
+        getData(`https://api.themoviedb.org/3/keyword/${getDetail.id}/movies?api_key=${process.env.API_KEY}&page=${pageNumber}`)
     }
     return (
         <Fragment>
@@ -90,10 +90,10 @@ function MovieByKeyword({ getDetail, getMovies }) {
 export async function getServerSideProps(context) {
     const { keyword_id } = context.query
     const keywordId = keyword_id.split('-')[0]
-    const getMovieUrl = await fetch(`https://api.themoviedb.org/3/keyword/${keywordId}/movies?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const getMovieUrl = await fetch(`https://api.themoviedb.org/3/keyword/${keywordId}/movies?api_key=${process.env.API_KEY}`)
     const getMovies = await getMovieUrl.json()
 
-    const getDetailUrl = await fetch(`https://api.themoviedb.org/3/keyword/${keywordId}?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const getDetailUrl = await fetch(`https://api.themoviedb.org/3/keyword/${keywordId}?api_key=${process.env.API_KEY}`)
     const getDetail = await getDetailUrl.json()
 
     return {

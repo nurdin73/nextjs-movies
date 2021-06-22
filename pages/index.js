@@ -52,25 +52,25 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
-  const tr = await fetch("https://api.themoviedb.org/3/movie/top_rated?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const tr = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}`)
   const topRated = await tr.json()
 
-  const np = await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const np = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.API_KEY}`)
   const nowPlaying = await np.json()
 
-  const pm = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const pm = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
   const popularMovies = await pm.json()
 
-  const upcoming = await fetch("https://api.themoviedb.org/3/movie/upcoming?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const upcoming = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.API_KEY}`)
   const upcomingMovies = await upcoming.json()
 
-  const getTrendingDays = await fetch("https://api.themoviedb.org/3/trending/all/day?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const getTrendingDays = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.API_KEY}`)
   const trendingDays = await getTrendingDays.json()
 
-  const getTrendingWeek = await fetch("https://api.themoviedb.org/3/trending/all/week?api_key=f52aa1a7c260685a467d566a4b94825f")
+  const getTrendingWeek = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.API_KEY}`)
   const trendingWeek = await getTrendingWeek.json()
 
-  const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=f52aa1a7c260685a467d566a4b94825f`)
+  const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=${process.env.API_KEY}`)
   const languages = await reqLang.json()
 
   return {

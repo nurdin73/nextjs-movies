@@ -376,13 +376,13 @@ export async function getServerSideProps(context) {
     const { tv_id } = context.query
     const tvId = tv_id.split('-')[0]
     
-    const api = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=f52aa1a7c260685a467d566a4b94825f&append_to_response=credits,keywords,videos,images,reviews,release_dates`)
+    const api = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${process.env.API_KEY}&append_to_response=credits,keywords,videos,images,reviews,release_dates`)
     const getDetail = await api.json()
 
-    const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=${process.env.API_KEY}`)
     const languages = await reqLang.json()
 
-    const apiRecommendation = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=f52aa1a7c260685a467d566a4b94825f`)
+    const apiRecommendation = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${process.env.API_KEY}`)
     const recommendations = await apiRecommendation.json()
 
     return {
