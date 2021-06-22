@@ -24,23 +24,23 @@ export default function Home(props) {
           {title: 'TV show', name: 'tv', type: 'popular'}
         ]} dataset={props.popularMovies} languages={props.languages} />
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <Hero result={props.popularMovies.results[9]} title="Latest Movie" md={48} lg={64} />
-          <Hero result={props.popularMovies.results[11]} title="Latest Movie" md={48} lg={64} isHidden={true} />
+          <Hero result={props.popularMovies.results[9]} media_type="movie" title="Latest Movie" md={48} lg={64} />
+          <Hero result={props.popularMovies.results[11]} media_type="movie" title="Latest Movie" md={48} lg={64} isHidden={true} />
         </div>
         <Tab title="Now Playing" type={[
           {title: 'Movies', name: 'movie', type: 'now_playing'},
           {title: 'TV show', name: 'tv', type: 'airing_today'}
         ]} dataset={props.nowPlaying} languages={props.languages} />
         <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-          <Hero result={props.nowPlaying.results[9]} title="Latest Movie" md={32} lg={44} isHidden={true} />
-          <Hero result={props.nowPlaying.results[10]} title="Latest Movie" md={32} lg={44} isHidden={true} />
-          <Hero result={props.nowPlaying.results[11]} title="Latest Movie" md={32} lg={44} />
+          <Hero result={props.nowPlaying.results[9]} media_type="movie" title="Latest Movie" md={32} lg={44} isHidden={true} />
+          <Hero result={props.nowPlaying.results[10]} media_type="movie" title="Latest Movie" md={32} lg={44} isHidden={true} />
+          <Hero result={props.nowPlaying.results[11]} media_type="movie" title="Latest Movie" md={32} lg={44} />
         </div>
         <Tab title="Top Ratings" type={[
           {title: 'Movies', name: 'movie', type: 'top_rated'},
           {title: 'TV show', name: 'tv', type: 'top_rated'}
         ]} dataset={props.topRated} languages={props.languages} />
-        <Hero result={props.topRated.results[9]} title="Latest Movie" />
+        <Hero result={props.topRated.results[9]} media_type="movie" title="Latest Movie" />
         <Tab title="Upcoming & On Air" type={[
           {title: 'Movies', name: 'movie', type: 'upcoming'},
           {title: 'TV show', name: 'tv', type: 'on_the_air'}
