@@ -46,7 +46,7 @@ function ListTv({ response }) {
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto md:overflow-hidden">
                     {data !== null ? data.results.map((result, key) => {
                         return (
-                            <Card result={result} link={`/detail/${media}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} key={key} type={media} />
+                            <Card result={result} imgWidth={400} imgHeight={580} link={`/detail/${media}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} key={key} type={media} />
                         )
                     }) :
                     response.results.map((result, key) => {
