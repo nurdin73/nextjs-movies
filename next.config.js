@@ -1,7 +1,7 @@
 // next.config.js
 module.exports = {
     images: {
-        domains: ['image.tmdb.org', "thumbs.dreamstime.com", "img.youtube.com"],
+        domains: ['image.tmdb.org', "thumbs.dreamstime.com", "img.youtube.com", "www.gravatar.com"],
     },
     env: {
         APP_NAME: 'LUX',
