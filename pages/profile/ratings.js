@@ -1,6 +1,16 @@
-import { Fragment } from "react"
+import { Fragment, useEffect } from "react"
 import Head from 'next/head'
+import {useRouter} from 'next/router'
+import Cookies from "js-cookie"
 function Ratings() {  
+    const router = useRouter()
+    useEffect(() => {
+        const sessionId = Cookies.get('session_id')
+        if(!sessionId) {
+            router.push('/')
+        }
+    })
+
     return (
         <Fragment>
             <Head>
