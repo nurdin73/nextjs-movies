@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import DateStr from "../DateStr"
 function Card({result, link, imgWidth = 640, imgHeight = 360, type = "movie"}) {
-    const rating = result.episode_count || result.vote_average.toFixed(1) || result.popularity.toFixed(1)
+    const rating = result.episode_count || result.vote_average || result.popularity
     return (
         <Link href={link}>
             <li className="cursor-pointer shadow-sm">
