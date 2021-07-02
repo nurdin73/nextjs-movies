@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import slugify from 'slugify'
 import DateStr from "../DateStr";
-import FlipMove from "react-flip-move";
 
 
 const Tab = forwardRef(({dataset, title, type = [], isTrending = false, languages}, ref) => {
@@ -43,27 +42,27 @@ const Tab = forwardRef(({dataset, title, type = [], isTrending = false, language
                     }
                 </ul>
             </div>
-            <FlipMove className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 overflow-x-auto md:overflow-hidden">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 overflow-x-auto md:overflow-hidden">
                 {data !== null ? data.map((result, key) => {
                     if(key < 8) {
                         return (
-                            <PosterMovieTv {...result} result={result} key={key} tab={activeTab} ref={ref} languages={languages} />
+                            <PosterMovieTv result={result} key={key} tab={activeTab} ref={ref} languages={languages} />
                         )
                     }
                 }) : dataset.results.map((result, key) => {
                 if(key < 8) {
                     return (
-                        <PosterMovieTv {...result} result={result} key={key} tab={activeTab} ref={ref} languages={languages} />
+                        <PosterMovieTv result={result} key={key} tab={activeTab} ref={ref} languages={languages} />
                     )
                 }
                 })}
-            </FlipMove>
+            </ul>
         </Fragment>
     )
 })
 
 
-const PosterMovieTv = (({result, tab, languages}, ref) => {
+function PosterMovieTv({result, tab, ref, languages}) {
     const detail = tab === "all" ? result.media_type : tab;
     const language = languages.filter(lang => {
         return lang.iso_639_1 === result.original_language
@@ -72,7 +71,7 @@ const PosterMovieTv = (({result, tab, languages}, ref) => {
         alert(media_id)
     }
     return (
-        <li className="cursor-pointer shadow-sm" ref={ref}>
+        <li className="cursor-pointer shadow-sm">
             <div className="relative overflow-hidden group rounded">
                 <button className="absolute block left-0.5 top-0.5 z-30 focus:outline-none" onClick={handleFavorit(result.media_type, result.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500 hover:opacity-70" viewBox="0 0 20 20" fill="currentColor">
@@ -103,7 +102,7 @@ const PosterMovieTv = (({result, tab, languages}, ref) => {
             </div>
         </li>
     )
-}) 
+}
 
 
 export default Tab
