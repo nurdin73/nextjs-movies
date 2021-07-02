@@ -3,10 +3,12 @@ import Cookies from 'js-cookie'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import slugify from 'slugify'
 function Navbar() { 
     const router = useRouter()
+
+    const refHome = useRef()
 
     const [openAutoComplete, setOpenAutoComplete] = useState(false)
     const [searchData, setSearchData] = useState([])
@@ -157,9 +159,11 @@ function Navbar() {
         <Fragment>
             <nav className="bg-gray-900 py-2 md:h-16 md:flex md:items-center">
                 <div className="md:container md:mx-auto md:px-3 flex justify-center flex-col md:flex-row items-center md:justify-between space-y-1 md:space-y-0 md:space-x-2">
-                    <Link href="/">
-                        <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200 lg:order-1">{process.env.APP_NAME}</span>
-                    </Link>
+                    <div ref={refHome}>
+                        <Link href="/">
+                            <span className="cursor-pointer text-yellow-500 text-3xl font-bold items-center flex hover:text-opacity-70 transition duration-200 lg:order-1">{process.env.APP_NAME}</span>
+                        </Link>
+                    </div>
                     <div className="w-3/4 md:w-1/2 block relative lg:order-2 order-3">
                         <form className="relative" onSubmit={handleSearchSubmit}>
                             <input type="text" defaultValue={searchVal} onKeyUp={handleKeyUp} placeholder="Search movie, person, tv show" className={`px-3 py-2 block w-full ${openAutoComplete === true ? 'rounded-t' : 'rounded'} text-yellow-500 bg-gray-800 border-0  outline-none`} />

@@ -1,7 +1,11 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Tab from '../components/Tab'
 import Banner from '../components/Banner'
 import Hero from '../components/Hero'
+import slugify from 'slugify'
+import FlipMove from 'react-flip-move'
+import Genre from '../components/Genre'
 
 export default function Home(props) {
   return (
@@ -13,6 +17,13 @@ export default function Home(props) {
       </Head>
       <div className="mx-3 xl:container xl:mx-auto xl:px-3 pt-4 pb-4">
         <Banner results={props.trendingWeek.results} />
+        <FlipMove className="flex space-x-4 md:space-x-7 whitespace-nowrap overflow-x-scroll scrollbar-hide my-2">
+          {props.genres.genres.map((genre, key) => {
+            return (
+              <Genre genre={genre} key={key} {...genre} />
+            )
+          })}
+        </FlipMove>
         <Tab title="Trending this day" type={[
           {title: 'All', name: 'all', type: 'day'},
           {title: 'Movies', name: 'movie', type: 'day'},
@@ -73,6 +84,9 @@ export async function getServerSideProps() {
   const reqLang = await fetch(`https://api.themoviedb.org/3/configuration/languages?api_key=${process.env.API_KEY}`)
   const languages = await reqLang.json()
 
+  const genreMovie = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}`)
+  const genres = await genreMovie.json()
+
   return {
     props: {
       topRated: topRated,
@@ -82,6 +96,7 @@ export async function getServerSideProps() {
       trending: trendingDays,
       trendingWeek: trendingWeek,
       languages: languages,
+      genres: genres
     },
   }
 }
