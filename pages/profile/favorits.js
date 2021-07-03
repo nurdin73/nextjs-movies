@@ -15,6 +15,7 @@ function Favorits() {
     return (
         <Fragment>
             <h1>Favorits</h1>
+            <pre>{Cookies.get('account')}</pre>
         </Fragment>
     )
 }

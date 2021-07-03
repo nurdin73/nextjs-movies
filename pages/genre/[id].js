@@ -41,7 +41,7 @@ function GenreDetail({movieByGenre, genres}) {
                 <title>movies genre {nameGenre}</title>
             </Head>
             <div className="px-3 md:container md:mx-auto py-3">
-                <FlipMove className="flex space-x-4 md:space-x-7 whitespace-nowrap overflow-x-scroll scrollbar-hide my-2">
+                <FlipMove className="flex space-x-4 md:space-x-7 whitespace-nowrap overflow-x-scroll no-scrollbar my-2">
                     {genres.genres.map((genre, key) => {
                         return (
                             <Genre genre={genre} key={key} {...genre} isActive={parseInt(id) === genre.id ? true : false} />

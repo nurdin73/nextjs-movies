@@ -68,16 +68,11 @@ function PosterMovieTv({result, tab, ref, languages}) {
         return lang.iso_639_1 === result.original_language
     })
     const handleFavorit = (media_type, media_id) => () => {
-        alert(media_id)
+        // alert(media_id)
     }
     return (
         <li className="cursor-pointer shadow-sm">
             <div className="relative overflow-hidden group rounded">
-                <button className="absolute block left-0.5 top-0.5 z-30 focus:outline-none" onClick={handleFavorit(result.media_type, result.id)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500 hover:opacity-70" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                    </svg>
-                </button>
                 <Link ref={ref} href={`/detail/${detail}/${result.id}-${slugify(result.title || result.name, {
                     lower: true
                 })}`}>

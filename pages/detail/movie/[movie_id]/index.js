@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Fragment, useEffect, useState } from 'react'
+import {useRouter} from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
 import EachData from '../../../../components/EachData';
@@ -7,14 +8,13 @@ import slugify from 'slugify';
 import TopBilledCast from '../../../../components/TopBilledCast';
 import DateStr from '../../../../components/DateStr';
 import Media from '../../../../components/Media';
+import Cookies from 'js-cookie';
+import Mark from '../../../../components/Mark';
 
 function DetailMovie({ getDetail, recommendations, languages }) {
+    const router = useRouter()
     const [mediaView, setMediaView] = useState('videos')
-
-    const openModal = (idColection) => () => {
-
-    }
-
+    
     var crewPopular = getDetail.credits.crew.filter(crew => {
         if(crew.popularity >= 1) {
             return crew.job == "Screenplay"  || crew.job == "Story" || crew.job == "Director" || crew.job == "Novel"
@@ -76,6 +76,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                                         <span className="text-xl text-gray-300 text-opacity-30">({getDetail.release_date.split('-')[0]})</span>
                                     </h1>
                                     <span className="block font-thin italic text-sm text-white text-opacity-80">{getDetail.tagline}</span>
+                                    <Mark media_type="movie" media_id={getDetail.id} />
                                     <span className="block py-1 text-lg text-white font-bold">Overview</span>
                                     <span className="block text-sm text-white text-opacity-80 font-light">{getDetail.overview}</span>
                                     <span className="block text-lg py-1 text-white font-bold">Genre</span>
@@ -225,6 +226,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                     </div>
                     <h2 className="mt-2 text-yellow-500 text-lg">{getDetail.title || getDetail.original_name}</h2>
                     <span className="block text-xs text-gray-600 italic mb-2">{getDetail.tagline}</span>
+                    <Mark media_type="movie" media_id={getDetail.id} />
                     <p className="text-gray-500 text-sm text-justify">{getDetail.overview}</p>
                     <ul className="list-none grid grid-cols-3 gap-4 mt-3">
                         {crewPopular.map((crew, key) => {
@@ -465,7 +467,7 @@ export async function getServerSideProps(context) {
         props: {
             getDetail: getDetail,
             recommendations: recommendations,
-            languages
+            languages,
         }
     }
 }

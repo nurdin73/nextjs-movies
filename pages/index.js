@@ -17,7 +17,7 @@ export default function Home(props) {
       </Head>
       <div className="mx-3 xl:container xl:mx-auto xl:px-3 pt-4 pb-4">
         <Banner results={props.trendingWeek.results} />
-        <FlipMove className="flex space-x-4 md:space-x-7 whitespace-nowrap overflow-x-scroll scrollbar-hide my-2">
+        <FlipMove className="flex space-x-4 md:space-x-7 whitespace-nowrap overflow-x-scroll no-scrollbar my-2">
           {props.genres.genres.map((genre, key) => {
             return (
               <Genre genre={genre} key={key} {...genre} />
