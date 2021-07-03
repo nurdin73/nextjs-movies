@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import slugify from 'slugify'
+import Swal from 'sweetalert2'
 function Navbar() { 
     const router = useRouter()
 
@@ -67,12 +68,20 @@ function Navbar() {
         })
         const result = await deleteSession.json()
         if(result.success !== undefined && result.success) {
-            alert("Logout berhasil")
+            Swal.fire({
+                title: 'Success!',
+                text: 'Logout success',
+                icon: 'success'
+            })
             Cookies.remove('session_id')
             Cookies.remove('account')
             router.reload()
         } else {
-            alert(result.status_message)
+            Swal.fire({
+                title: 'Error!',
+                text: result.status_message,
+                icon: 'error'
+            })
         }
 
     }
@@ -120,7 +129,11 @@ function Navbar() {
                 const account = await getAccountDetail.json()
                 Cookies.set('account', JSON.stringify(account), {expires: 7})
                 Cookies.set('session_id', session.session_id, {expires: 7})
-                alert('login success')
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Login success',
+                    icon: 'success'
+                })
                 router.reload()
             }
             setOpen(false)
