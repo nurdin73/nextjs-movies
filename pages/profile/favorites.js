@@ -9,6 +9,7 @@ function Favorits() {
     const router = useRouter()
     const [data, setData] = useState(null)
     const [tab, setTab] = useState('movies')
+    const [aliasTab, setAliasTab] = useState('movie')
     const [account, setAccount] = useState(null)
     const [session, setSession] = useState(null)
 
@@ -30,6 +31,11 @@ function Favorits() {
 
     const handleTabShow = (nameTab = "") => async () => {
         setTab(nameTab)
+        if(nameTab === "movies") {
+            setAliasTab('movie')
+        } else {
+            setAliasTab('tv')
+        }
         const req = await fetch(`https://api.themoviedb.org/3/account/${account.id}/favorite/${nameTab}?api_key=${process.env.API_KEY}&session_id=${session}&sort_by=created_at.desc`)
         const res = await req.json()
         setData(res)
@@ -50,7 +56,7 @@ function Favorits() {
                     {data !== null ? 
                         (
                             data.results.length > 0 ? data.results.map((result, key) => {
-                                return <Card key={key} result={result} type={tab} imgWidth={400} imgHeight={580} link={`/detail/${tab}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
+                                return <Card key={key} result={result} type={aliasTab} imgWidth={400} imgHeight={580} link={`/detail/${aliasTab}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
                             }) : <h1 className="uppercase text-xl col-span-8 text-yellow-500">Object not found</h1>
                         )
                     : ""
