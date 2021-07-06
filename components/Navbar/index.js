@@ -71,6 +71,7 @@ function Navbar() {
             Swal.fire({
                 title: 'Success!',
                 text: 'Logout success',
+                background: 'rgba(17, 24, 39, 1)',
                 icon: 'success'
             })
             Cookies.remove('session_id')
@@ -80,6 +81,7 @@ function Navbar() {
             Swal.fire({
                 title: 'Error!',
                 text: result.status_message,
+                background: 'rgba(17, 24, 39, 1)',
                 icon: 'error'
             })
         }
@@ -132,6 +134,7 @@ function Navbar() {
                 Swal.fire({
                     title: 'Success',
                     text: 'Login success',
+                    background: 'rgba(17, 24, 39, 1)',
                     icon: 'success'
                 })
                 router.reload()
@@ -483,13 +486,13 @@ function Navbar() {
                                                 </Menu.Item>
                                                 <Menu.Item>
                                                     {({ active }) => (
-                                                        <Link href={`/profile/favorits`}>
+                                                        <Link href={`/profile/favorites`}>
                                                             <button
                                                                 className={`${
                                                                 active ? ' text-gray-200 bg-gray-800' : 'text-gray-500'
                                                                 } group flex rounded-md items-center focus:outline-none w-full px-2 py-2 text-sm hover:text-gray-200 hover:bg-gray-800`}
                                                             >
-                                                                Favorits
+                                                                Favorites
                                                             </button>
                                                         </Link>
                                                     )}

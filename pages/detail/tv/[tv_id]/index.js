@@ -8,6 +8,7 @@ import EachData from "../../../../components/EachData";
 import TopBilledCast from "../../../../components/TopBilledCast";
 import Card from '../../../../components/Card'
 import Media from "../../../../components/Media";
+import Mark from "../../../../components/Mark";
 
 function TVDetail({ getDetail, languages, recommendations }) { 
 
@@ -74,6 +75,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                                         <span className="text-xl text-gray-300 text-opacity-30">({getDetail.first_air_date.split('-')[0]})</span>
                                     </h1>
                                     <span className="block font-thin italic text-sm text-white text-opacity-80">{getDetail.tagline}</span>
+                                    <Mark media_type="tv" media_id={getDetail.id} />
                                     <span className="block py-1 text-lg text-white font-bold">Overview</span>
                                     <span className="block text-sm text-white text-opacity-80 font-light">{getDetail.overview}</span>
                                     <span className="block text-lg py-1 text-white font-bold">Genre</span>
@@ -213,6 +215,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
                     </ul>
                     <h2 className="mt-2 text-yellow-500 text-lg">{getDetail.name || getDetail.original_name}</h2>
                     <span className="block text-xs text-gray-600 italic mb-2">{getDetail.tagline}</span>
+                    <Mark media_type="tv" media_id={getDetail.id} />
                     <p className="text-gray-500 text-sm text-justify">{getDetail.overview}</p>
                     <ul className="list-none grid grid-cols-3 gap-4 mt-3">
                         {crewPopular.map((crew, key) => {

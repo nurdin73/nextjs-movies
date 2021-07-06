@@ -4,7 +4,7 @@ import {useRouter} from 'next/router'
 import Cookies from "js-cookie"
 import Card from '../../components/Card'
 import slugify from "slugify"
-function Watchlists() {  
+function Favorits() {  
 
     const router = useRouter()
     const [data, setData] = useState(null)
@@ -21,7 +21,7 @@ function Watchlists() {
         const myAccount = JSON.parse(Cookies.get('account'))
         setAccount(myAccount)
         async function getFav() {  
-            const req = await fetch(`https://api.themoviedb.org/3/account/${myAccount.id}/watchlist/movies?api_key=${process.env.API_KEY}&session_id=${sessionId}&sort_by=created_at.desc`)
+            const req = await fetch(`https://api.themoviedb.org/3/account/${myAccount.id}/favorite/movies?api_key=${process.env.API_KEY}&session_id=${sessionId}&sort_by=created_at.desc`)
             const res = await req.json()
             setData(res)
         }
@@ -30,7 +30,7 @@ function Watchlists() {
 
     const handleTabShow = (nameTab = "") => async () => {
         setTab(nameTab)
-        const req = await fetch(`https://api.themoviedb.org/3/account/${account.id}/watchlist/${nameTab}?api_key=${process.env.API_KEY}&session_id=${session}&sort_by=created_at.desc`)
+        const req = await fetch(`https://api.themoviedb.org/3/account/${account.id}/favorite/${nameTab}?api_key=${process.env.API_KEY}&session_id=${session}&sort_by=created_at.desc`)
         const res = await req.json()
         setData(res)
     }
@@ -38,10 +38,10 @@ function Watchlists() {
     return (
         <Fragment>
             <Head>
-                <title>My Watchlists</title>
+                <title>My Favorites</title>
             </Head>
             <div className="md:container md:mx-auto px-3">
-                <h1 className="text-2xl text-yellow-500 uppercase md:py-3 py-1 border-b-2 border-gray-700 md:mb-3 mb-1">Watchlists</h1>
+                <h1 className="text-2xl text-yellow-500 uppercase md:py-3 py-1 border-b-2 border-gray-700 md:mb-3 mb-1">Favorites</h1>
                 <ul className="flex space-x-2 whitespace-nowrap mb-3">
                     <li onClick={handleTabShow('movies')} className={`${tab === "movies" ? "bg-yellow-500 text-gray-900" : "md:bg-gray-900 bg-gray-800"} px-3 cursor-pointer hover:bg-yellow-500 hover:text-gray-900 transition duration-300 py-1 text-md text-gray-500 rounded`}>Movies</li>
                     <li onClick={handleTabShow('tv')} className={`${tab === "tv" ? "bg-yellow-500 text-gray-900" : "md:bg-gray-900 bg-gray-800"} px-3 cursor-pointer hover:bg-yellow-500 hover:text-gray-900 transition duration-300 py-1 text-md text-gray-500 rounded`}>Tv Show</li>
@@ -61,4 +61,4 @@ function Watchlists() {
     )
 }
 
-export default Watchlists
+export default Favorits

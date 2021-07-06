@@ -73,12 +73,14 @@ function Btn({title, icon, media_id, media_type, type_btn}) {
                 Swal.fire({
                     title: 'Success!',
                     text: res.status_message,
+                    background: 'rgba(17, 24, 39, 1)',
                     icon: 'success'
                 })
             } else {
                 Swal.fire({
                     title: 'Error!',
                     text: res.status_message,
+                    background: 'rgba(17, 24, 39, 1)',
                     icon: 'error',
                 })
             }
