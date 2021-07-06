@@ -3,7 +3,7 @@ import { Fragment, useEffect } from 'react'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import '../styles/globals.css'
-import Banner from '../components/Banner'
+import NextNprogress from 'nextjs-progressbar';
 
 function MyApp({ Component, pageProps }) {
 
@@ -12,6 +12,16 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      <NextNprogress
+        color="rgba(245, 158, 11, 1);"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        showOnShallow={true}
+        options={{
+          showSpinner: false
+        }}
+      />
       <Navbar />
       <div className="min-h-screen bg-gray-900 md:bg-opacity-95">
         <Component {...pageProps} />
