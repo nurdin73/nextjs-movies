@@ -18,6 +18,7 @@ function Navbar() {
     const [password, setPassword] = useState('')
     const [accountData, setSessionID] = useState(Cookies.get('account') !== undefined ? JSON.parse(Cookies.get('account')) : null)
     const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
     const openModalLogin = () => {
         setOpen(true)
     }
@@ -52,6 +53,7 @@ function Navbar() {
     }
 
     const handleLogout = async () => {
+        setLoading(true)
         const deleteSession = await fetch(`https://api.themoviedb.org/3/authentication/session?api_key=${process.env.API_KEY}`, {
             method: 'DELETE',
             mode: 'cors',
@@ -67,16 +69,20 @@ function Navbar() {
             })
         })
         const result = await deleteSession.json()
+        setLoading(false)
         if(result.success !== undefined && result.success) {
+            Cookies.remove('session_id')
+            Cookies.remove('account')
             Swal.fire({
                 title: 'Success!',
                 text: 'Logout success',
                 background: 'rgba(17, 24, 39, 1)',
                 icon: 'success'
+            }).then((confirm) => {
+                if(confirm.value === true) {
+                    router.reload()
+                }
             })
-            Cookies.remove('session_id')
-            Cookies.remove('account')
-            router.reload()
         } else {
             Swal.fire({
                 title: 'Error!',
@@ -92,6 +98,7 @@ function Navbar() {
         e.preventDefault()
         async function postData(url = "") {
             const getRequestToken = `https://api.themoviedb.org/3/authentication/token/new?api_key=${process.env.API_KEY}`
+            setLoading(true)
             const req = await fetch(getRequestToken)
             const reqToken = await req.json()
             const response = await fetch(url, {
@@ -126,6 +133,7 @@ function Navbar() {
                 })
             })
             const session = await getSession.json()
+            setLoading(false)
             if(session.session_id !== undefined) {
                 const getAccountDetail = await fetch(`https://api.themoviedb.org/3/account?api_key=${process.env.API_KEY}&session_id=${session.session_id}`)
                 const account = await getAccountDetail.json()
@@ -136,8 +144,11 @@ function Navbar() {
                     text: 'Login success',
                     background: 'rgba(17, 24, 39, 1)',
                     icon: 'success'
+                }).then((confirm) => {
+                    if(confirm.value === true) {
+                        router.reload()
+                    }
                 })
-                router.reload()
             }
             setOpen(false)
             return results;
@@ -531,6 +542,17 @@ function Navbar() {
                     </div>
                 </div>
             </nav>
+            {loading ? 
+                <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 z-20 bg-opacity-60 flex justify-center items-center">
+                    <ul className="flex items-center justify-center space-x-1">
+                        <li className="bg-gray-700 w-1.5 h-6 animate-bounce"></li>
+                        <li className="bg-gray-700 w-1.5 h-6 animate-bounce"></li>
+                        <li className="bg-gray-700 w-1.5 h-6 animate-bounce"></li>
+                        <li className="bg-gray-700 w-1.5 h-6 animate-bounce"></li>
+                    </ul>
+                </div>
+            : ""
+            }
 
             <Transition appear as={Fragment} show={open}>
                 <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={closeModal}>
