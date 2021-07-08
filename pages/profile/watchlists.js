@@ -69,8 +69,8 @@ function Watchlists() {
         const res = await req.json()
         setData(res)
         setPage(res.page)
-        setTotalResult(resp.total_results)
-        const paginations = pagination(resp.total_results, resp.page)
+        setTotalResult(res.total_results)
+        const paginations = pagination(res.total_results, res.page)
         setPaginate(paginations)
         setPrevDisabled(paginations.currentPage === 1 ? true : false)
         setNextDisabled(paginations.currentPage === paginations.totalPages ? true : false)
@@ -94,7 +94,7 @@ function Watchlists() {
                                 return <Card key={key} result={result} type={aliasTab} imgWidth={400} imgHeight={580} link={`/detail/${aliasTab}/${result.id}-${slugify(result.title || result.name, {lower: true})}`} />
                             }) : <h1 className="uppercase text-xl col-span-8 text-yellow-500">Object not found</h1>
                         )
-                    : ""
+                    : <h1 className="uppercase text-xl col-span-8 text-yellow-500">Object not found</h1>
                     }
                 </ul>
                 <div className="flex justify-center mt-4">
