@@ -51,7 +51,7 @@ function TVDetail({ getDetail, languages, recommendations }) {
         "@type": "Movie",
         "url": `/detail/tv/${getDetail.id}-${slugify(getDetail.name || getDetail.original_name, {lower: true})}`,
         "name": getDetail.name || getDetail.original_name,
-        "image": `https://image.tmdb.org/t/p/original${getDetail.backdrop_path}`,
+        "image": `https://image.tmdb.org/t/p/original${getDetail.poster_path}`,
         "genre": getDetail.genres.map(genre => genre.name),
         "actor": castPopular.map((cast) => {
             return {

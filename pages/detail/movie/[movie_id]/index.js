@@ -57,7 +57,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
         "@type": "Movie",
         "url": `/detail/movie/${getDetail.id}-${slugify(getDetail.title || getDetail.name, {lower: true})}`,
         "name": getDetail.title || getDetail.original_title,
-        "image": `https://image.tmdb.org/t/p/original${getDetail.backdrop_path}`,
+        "image": `https://image.tmdb.org/t/p/original${getDetail.poster_path}`,
         "contentRating": cert[0]?.release_dates[0]?.certification || "PG-13",
         "genre": getDetail.genres.map(genre => genre.name),
         "actor": castPopular.map((cast) => {
