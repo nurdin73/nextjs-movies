@@ -78,7 +78,8 @@ function TVDetail({ getDetail, languages, recommendations }) {
                 "contentUrl": `https://img.youtube.com/vi/${getDetail.videos.results[0]?.key}/0.jpg`
             },
             "thumbnailUrl": `https://img.youtube.com/vi/${getDetail.videos.results[0]?.key}/0.jpg`,
-            "description": getDetail.overview
+            "description": getDetail.overview,
+            "uploadDate" : getDetail.first_air_date
         },
         "datePublished":getDetail.release_date,
         "description": getDetail.overview,
