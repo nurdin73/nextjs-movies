@@ -19,6 +19,10 @@ function TVDetail({ getDetail, languages, recommendations }) {
         }
     })
 
+    const keywordAll = getDetail.keywords.results.map(keyword => {
+        return keyword.name
+    })
+
     crewPopular = crewPopular.length === 0 ? getDetail.credits.crew.filter((crew, key) => {
         if(key < 6) {
             return crew.job == "Executive Producer"  || crew.job == "Co-Executive Producer" || crew.job == "Supervising Art Director" || crew.job == "Original Music Composer"
@@ -41,11 +45,60 @@ function TVDetail({ getDetail, languages, recommendations }) {
         }
     }) : castPopular
 
+
+    const schemaMarkup = {
+        "@context": "https://schema.org",
+        "@type": "Movie",
+        "url": `/detail/tv/${getDetail.id}-${slugify(getDetail.name || getDetail.original_name, {lower: true})}`,
+        "name": getDetail.name || getDetail.original_name,
+        "image": `https://image.tmdb.org/t/p/original${getDetail.backdrop_path}`,
+        "genre": getDetail.genres.map(genre => genre.name),
+        "actor": castPopular.map((cast) => {
+            return {
+                "@type":"Person",
+                "url" : `/detail/person/${cast.id}-${slugify(cast.name, {lower: true})}`,
+                "name" : cast.name
+            }
+        }),
+        "director": crewPopular.map(crew => {
+            if(crew.job === "Director") {
+                return {
+                    "@type":"Person",
+                    "url" : `/detail/person/${crew.id}-${slugify(crew.name, {lower: true})}`,
+                    "name" : crew.name
+                }
+            }
+        }),
+        "trailer": {
+            "@type":"VideoObject",
+            "name": getDetail.videos.results[0]?.name,
+            "embedUrl": `https://www.youtube.com/embed/${getDetail.videos.results[0]?.key}`,
+            "thumbnail": {
+                "@type": "ImageObject",
+                "contentUrl": `https://img.youtube.com/vi/${getDetail.videos.results[0]?.key}/0.jpg`
+            },
+            "thumbnailUrl": `https://img.youtube.com/vi/${getDetail.videos.results[0]?.key}/0.jpg`,
+            "description": getDetail.overview
+        },
+        "datePublished":getDetail.release_date,
+        "description": getDetail.overview,
+        "keywords": keywordAll.join(','),
+        "aggregateRating": {
+            "@type":"AggregateRating",
+            "ratingCount": getDetail.vote_count,
+            "bestRating": 10,
+            "worstRating": 1,
+            "ratingValue": getDetail.vote_average
+        },
+        "duration": getDetail.runtime
+    }
+
     return (
         <Fragment>
             <Head>
                 <title>{getDetail.name || getDetail.original_name} | LUX movie rating</title>
                 <meta name="description" content={getDetail.overview} />
+                <meta name="keywords" content={keywordAll.join(',')} />
                 <meta property="og:title" id="titleOg" content={ getDetail.name || getDetail.original_name + " | LUX movie rating" } />
                 <meta property="og:description" id="descOg" content={ getDetail.overview } />
                 <meta property="og:site_name" content="LUX | online movie ratings" />
@@ -53,6 +106,10 @@ function TVDetail({ getDetail, languages, recommendations }) {
                 <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${getDetail.poster_path}`} />
                 <meta property="og:image:width" content="245" />
                 <meta property="og:image:height" content="71" />
+                <script 
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+                ></script>
             </Head>
             <div className="md:block hidden">
                 <div className="min-h-full md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>

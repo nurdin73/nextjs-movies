@@ -14,6 +14,10 @@ import Mark from '../../../../components/Mark';
 function DetailMovie({ getDetail, recommendations, languages }) {
     const router = useRouter()
     const [mediaView, setMediaView] = useState('videos')
+
+    const keywordAll = getDetail.keywords.keywords.map(keyword => {
+        return keyword.name
+    })
     
     var crewPopular = getDetail.credits.crew.filter(crew => {
         if(crew.popularity >= 1) {
@@ -40,6 +44,61 @@ function DetailMovie({ getDetail, recommendations, languages }) {
     const handleClickMedia = (media = "videos") => () => {
         setMediaView(media)
     }
+
+    const cert = getDetail.release_dates.results.filter(release => {
+        if(release.iso_3166_1 === getDetail.production_countries[0]?.iso_3166_1) {
+            return release.release_dates[0]?.certification
+        }
+    })
+    
+
+    const schemaMarkup = {
+        "@context": "https://schema.org",
+        "@type": "Movie",
+        "url": `/detail/movie/${getDetail.id}-${slugify(getDetail.title || getDetail.name, {lower: true})}`,
+        "name": getDetail.title || getDetail.original_title,
+        "image": `https://image.tmdb.org/t/p/original${getDetail.backdrop_path}`,
+        "contentRating": cert[0]?.release_dates[0]?.certification || "PG-13",
+        "genre": getDetail.genres.map(genre => genre.name),
+        "actor": castPopular.map((cast) => {
+            return {
+                "@type":"Person",
+                "url" : `/detail/person/${cast.id}-${slugify(cast.name, {lower: true})}`,
+                "name" : cast.name
+            }
+        }),
+        "director": crewPopular.map(crew => {
+            if(crew.job === "Director") {
+                return {
+                    "@type":"Person",
+                    "url" : `/detail/person/${crew.id}-${slugify(crew.name, {lower: true})}`,
+                    "name" : crew.name
+                }
+            }
+        }),
+        "trailer": {
+            "@type":"VideoObject",
+            "name": getDetail.videos.results[0]?.name,
+            "embedUrl": `https://www.youtube.com/embed/${getDetail.videos.results[0]?.key}`,
+            "thumbnail": {
+                "@type": "ImageObject",
+                "contentUrl": `https://img.youtube.com/vi/${getDetail.videos.results[0]?.key}/0.jpg`
+            },
+            "thumbnailUrl": `https://img.youtube.com/vi/${getDetail.videos.results[0]?.key}/0.jpg`,
+            "description": getDetail.overview
+        },
+        "datePublished":getDetail.release_date,
+        "description": getDetail.overview,
+        "keywords": keywordAll.join(','),
+        "aggregateRating": {
+            "@type":"AggregateRating",
+            "ratingCount": getDetail.vote_count,
+            "bestRating": 10,
+            "worstRating": 1,
+            "ratingValue": getDetail.vote_average
+        },
+        "duration": getDetail.runtime
+    }
     
 
     return (
@@ -47,6 +106,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
             <Head>
                 <title>{getDetail.title} | LUX movie rating</title>
                 <meta name="description" content={getDetail.overview} />
+                <meta name="keywords" content={keywordAll.join(',')} />
                 <meta property="og:title" id="titleOg" content={ getDetail.title + " | LUX movie rating" } />
                 <meta property="og:description" id="descOg" content={ getDetail.overview } />
                 <meta property="og:site_name" content="LUX | online movie ratings" />
@@ -54,6 +114,10 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                 <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${getDetail.poster_path}`} />
                 <meta property="og:image:width" content="245" />
                 <meta property="og:image:height" content="71" />
+                <script 
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+                ></script>
             </Head>
             <div className="hidden sm:block">
                 <div className="min-h-full md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>
