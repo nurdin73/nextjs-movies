@@ -197,11 +197,11 @@ function TVDetail({ getDetail, languages, recommendations }) {
                             </div>
                             <ReviewList reviews={getDetail.reviews} />
                             <h2 className="mt-2 text-yellow-500 text-lg">Season <span className="bg-gray-800 bg-opacity-70 rounded text-gray-500 text-sm px-2">{getDetail.number_of_seasons}</span></h2>
-                            <ul className="flex overflow-x-scroll gap-3 my-2">
+                            <ul className="flex overflow-x-scroll no-scrollbar gap-3 my-2">
                                 {getDetail.seasons.map((season, key) => {
                                     return (
                                         <Link key={key} href={`/detail/tv/${getDetail.id}/season/${season.season_number}`}>
-                                            <li className="flex-1 cursor-pointer max-w-xs">
+                                            <li className="flex-1 cursor-pointer" style={{ maxWidth: '20%' }}>
                                                 <Image 
                                                     src={season.poster_path !== null ? `https://image.tmdb.org/t/p/original${season.poster_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
                                                     alt={season.name || season.original_name}
@@ -420,7 +420,7 @@ export function ReviewList({ reviews = [] }) {
                                 <div className="grid grid-cols-12 md:gap-4">
                                     <div className="col-span-1 hidden md:block">
                                         <Image 
-                                            src={`https://image.tmdb.org/t/p/original${review.author_details.avatar_path}`}
+                                            src={review.author_details.avatar_path !== null ? `https://image.tmdb.org/t/p/original${review.author_details.avatar_path}` : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
                                             alt={review.author}
                                             width={70}
                                             height={70}
