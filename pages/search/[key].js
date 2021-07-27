@@ -93,7 +93,7 @@ function Search({response}) {
 
 export async function getServerSideProps(context) {
     const { key } = context.query
-    const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=$P{https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.API_KEY}&query=${key}`)
+    const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.API_KEY}&query=${key}`)
     const response = await res.json()
     return {
         props: {
