@@ -123,7 +123,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
             <div className="hidden sm:block">
                 <div className="min-h-full md:bg-cover md:bg-no-repeat md:bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${getDetail.backdrop_path})` }}>
                     <div className="bg-gray-900 bg-opacity-90 bg-cover min-h-full">
-                        <div className="container mx-auto py-8">
+                        <div className="container mx-auto md:px-3 py-8">
                             <div className="grid md:grid-cols-12 justify-center gap-4 items-center">
                                 <div className="col-span-5 justify-center md:col-span-3 bg-cover bg-center min-h-full relative">
                                     <Image 
@@ -177,7 +177,7 @@ function DetailMovie({ getDetail, recommendations, languages }) {
                         </div>
                     </div>
                 </div>
-                <div className="container mx-auto">
+                <div className="container mx-auto md:px-3">
                     <div className="grid grid-cols-12 gap-4">
                         <div className="col-span-9">
                             <div className="flex justify-between items-center">
