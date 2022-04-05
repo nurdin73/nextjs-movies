@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
     <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-site-verification" content="VSB6duLCNGdsrn06AdbowsElEaSqAJ1-E-FQr5ZEr7E" />
       </Head>
       <NextNprogress
         color="rgba(245, 158, 11, 1);"
